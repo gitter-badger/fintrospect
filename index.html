@@ -1,43 +1,67 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Fintrospect by daviddenton</title>
+    <meta name="viewport" content="width=640">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Fintrospect by daviddenton</title>
   </head>
+
   <body>
-    <div class="wrapper">
+    <a id="forkme_banner" href="https://github.com/daviddenton/fintrospect">View on GitHub</a>
+    <div class="shell">
+
       <header>
-        <h1>Fintrospect</h1>
-        <p></p>
-
-        <p class="view"><a href="https://github.com/daviddenton/fintrospect">View the Project on GitHub <small>daviddenton/fintrospect</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/daviddenton/fintrospect/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/daviddenton/fintrospect/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/daviddenton/fintrospect">View On <strong>GitHub</strong></a></li>
-        </ul>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Fintrospect</h1>
+            <h2></h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
       </header>
-      <section>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/daviddenton/fintrospect/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/daviddenton/fintrospect/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
         <h1>
 <a id="fintrospect-------" class="anchor" href="#fintrospect-------" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fintrospect <a href="https://travis-ci.org/daviddenton/fintrospect"><img src="https://travis-ci.org/daviddenton/fintrospect.svg" alt="Build Status"></a> <a href="https://coveralls.io/r/daviddenton/fintrospect?branch=master"><img src="https://coveralls.io/repos/daviddenton/fintrospect/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg" alt="Download"> </a> <a href="https://bintray.com/daviddenton/maven/fintrospect/view?source=watch"> <img src="https://www.bintray.com/docs/images/bintray_badge_color.png" alt="Watch"> </a>
 </h1>
 
+<p>Library that adds self-documentation to Finagle server endpoint services.</p>
+
 <h3>
 <a id="get-it" class="anchor" href="#get-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get it:</h3>
 
-<p>Add the following dependency to <code>build.sbt</code>:</p>
+<p>Add the following lines to <code>build.sbt</code>. Note that this library doesn't depend on a particular version of Finagle,
+although it has only been tested with the version below:</p>
 
 <div class="highlight highlight-scala"><pre>resolvers <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>JCenter<span class="pl-pds">"</span></span> at <span class="pl-s1"><span class="pl-pds">"</span>https://jcenter.bintray.com<span class="pl-pds">"</span></span>
+
+libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>com.twitter<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s1"><span class="pl-pds">"</span>finagle-http<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s1"><span class="pl-pds">"</span>6.24.0<span class="pl-pds">"</span></span>
+
 libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>io.github.daviddenton<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s1"><span class="pl-pds">"</span>fintrospect<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s1"><span class="pl-pds">"</span>0.0.1<span class="pl-pds">"</span></span></pre></div>
 
 <h3>
@@ -45,12 +69,21 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 
 <p>See the <a href="https://github.com/daviddenton/fintrospect/tree/master/src/test/scala/examples">example code</a>.</p>
       </section>
+
       <footer>
-        <p>This project is maintained by <a href="https://github.com/daviddenton">daviddenton</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/daviddenton">daviddenton</a> can be found on <a href="https://github.com/daviddenton/fintrospect">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
       </footer>
+
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+
     
   </body>
 </html>
