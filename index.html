@@ -23,7 +23,21 @@
 <a id="fintrospect-------" class="anchor" href="#fintrospect-------" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fintrospect <a href="https://travis-ci.org/daviddenton/fintrospect"><img src="https://travis-ci.org/daviddenton/fintrospect.svg" alt="Build Status"></a> <a href="https://coveralls.io/r/daviddenton/fintrospect?branch=master"><img src="https://coveralls.io/repos/daviddenton/fintrospect/badge.svg?branch=master" alt="Coverage Status"></a> <a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg" alt="Download"> </a> <a href="https://bintray.com/daviddenton/maven/fintrospect/view?source=watch"> <img src="https://www.bintray.com/docs/images/bintray_badge_color.png" alt="Watch"> </a>
 </h1>
 
-<p>Library that adds self-documentation to Finagle server endpoint services.</p>
+<p>Fintrospect is a bolt-on library for use with the <a href="http://twitter.github.io/finagle/">Finagle</a> RPC framework from Twitter. It was developed out of a desire to provide a pleasant API for describing HTTP request routing in combination with statically-typed documentation which could be verified at compile time and auto-generated at runtime (and thus avoiding the stale documentation risk that exists with manually written docs).</p>
+
+<p>Using this library, you can:</p>
+
+<ul>
+<li>Automatically generate documentation in a variety of formats (e.g. <a href="http://swagger.io/">Swagger</a> v1.2 and v2.0). Pluggable architecture for adding your own renderers (currently JSON-based only).</li>
+<li>Define individual HTTP routes and compose them into sensible context-based modules.</li>
+<li>Declare both mandatory and optional parameters to be used in the following locations: <code>Path/Header/Query/Form/Body</code>. Retrieval of the parameters is simple and type-safe (<code>[T]</code> for mandatory, <code>Option[T]</code> for optional). </li>
+<li>Endpoints automatically verify the prescence and validity of both optional and mandatory parameters (apart from the body for obvious reasons). If any parameters are missing or invalid, a <code>BAD_REQUEST</code> response is generated - meaning that no extra validation code is required for these parameters in your controller code.</li>
+</ul>
+
+<h3>
+<a id="see-it" class="anchor" href="#see-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>See it:</h3>
+
+<p>See the <a href="https://github.com/daviddenton/fintrospect/tree/master/src/test/scala/examples">example code</a>.</p>
 
 <h3>
 <a id="get-it" class="anchor" href="#get-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get it:</h3>
@@ -32,15 +46,8 @@
 and it has only been tested with the version below:</p>
 
 <div class="highlight highlight-scala"><pre>resolvers <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>JCenter<span class="pl-pds">"</span></span> at <span class="pl-s"><span class="pl-pds">"</span>https://jcenter.bintray.com<span class="pl-pds">"</span></span>
-
 libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>com.twitter<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s"><span class="pl-pds">"</span>finagle-http<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s"><span class="pl-pds">"</span>6.25.0<span class="pl-pds">"</span></span>
-
 libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>io.github.daviddenton<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s"><span class="pl-pds">"</span>fintrospect<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s"><span class="pl-pds">"</span>X.X.X<span class="pl-pds">"</span></span></pre></div>
-
-<h3>
-<a id="see-it" class="anchor" href="#see-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>See it:</h3>
-
-<p>See the <a href="https://github.com/daviddenton/fintrospect/tree/master/src/test/scala/examples">example code</a>.</p>
 
 <h3>
 <a id="migration-guide" class="anchor" href="#migration-guide" aria-hidden="true"><span class="octicon octicon-link"></span></a>Migration Guide</h3>
