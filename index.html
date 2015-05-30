@@ -28,7 +28,7 @@
 <p>Using this library, you can:</p>
 
 <ul>
-<li>Automatically generate documentation in a variety of formats (e.g. <a href="http://swagger.io/">Swagger</a> v1.2 and v2.0). Pluggable architecture for adding your own renderers (currently JSON-based only).</li>
+<li>Automatically generate documentation in a variety of formats (e.g. <a href="http://swagger.io/">Swagger</a> v1.2 and v2.0). Pluggable architecture for adding your own format renderers (e.g other JSON, XML).</li>
 <li>Define individual HTTP routes and compose them into sensible context-based modules.</li>
 <li>Declare both required and optional parameters to be used in the following locations: <code>Path/Header/Query/Form/Body</code>. Retrieval of the parameters is simple and type-safe (<code>[T]</code> for required, <code>Option[T]</code> for optional).</li>
 <li>Endpoints automatically verify the presence and validity of both optional and required parameters (apart from the body for obvious reasons). If any parameters are missing or invalid, a <code>BAD_REQUEST</code> response is generated - meaning that no extra validation code is required for these parameters in your controller code.</li>
@@ -56,7 +56,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <p>Adding Fintrospect routes to a Finagle HTTP server is simple. For this example, we'll imagine a Library application (see the example above for the full code) which will be rendering Swagger v2 documentation.</p>
 
 <h5>
-<a id="define-a-module-to-live-at-httphost8080library" class="anchor" href="#define-a-module-to-live-at-httphost8080library" aria-hidden="true"><span class="octicon octicon-link"></span></a>Define a module to live at <code>http://&lt;host&gt;:8080/library</code>
+<a id="define-a-module-to-live-at-httphost8080library" class="anchor" href="#define-a-module-to-live-at-httphost8080library" aria-hidden="true"><span class="octicon octicon-link"></span></a>Define a module to live at <code>http://{host}:8080/library</code>
 </h5>
 
 <p>This module will have a single endpoint <code>search</code>:</p>
@@ -97,7 +97,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <h5>
 <a id="view-the-generated-documentation" class="anchor" href="#view-the-generated-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>View the generated documentation</h5>
 
-<p>The auto-generated documenation lives at the root of the module, so point the Swagger UI at <code>http://&lt;host&gt;:8080/library</code> to see it.</p>
+<p>The auto-generated documenation lives at the root of the module, so point the Swagger UI at <code>http://{host}:8080/library</code> to see it.</p>
 
 <h5>
 <a id="test-it" class="anchor" href="#test-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test it</h5>
