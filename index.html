@@ -13,9 +13,9 @@
     <section class="page-header">
       <h1 class="project-name">Fintrospect</h1>
       <h2 class="project-tagline"></h2>
-      <a href="https://github.com/daviddenton/fintrospect" class="btn">View on GitHub</a>
-      <a href="https://github.com/daviddenton/fintrospect/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/daviddenton/fintrospect/tarball/master" class="btn">Download .tar.gz</a>
+      <a href="https://github.com/daviddenton/fintrospect" target="_top" class="btn">View on GitHub</a>
+      <a href="https://github.com/daviddenton/fintrospect/zipball/master" target="_top" class="btn">Download .zip</a>
+      <a href="https://github.com/daviddenton/fintrospect/tarball/master" target="_top" class="btn">Download .tar.gz</a>
     </section>
 
     <section class="main-content">
@@ -23,21 +23,21 @@
 <a id="fintrospect-" class="anchor" href="#fintrospect-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fintrospect </h1>
 
 <p><a href="https://travis-ci.org/daviddenton/fintrospect" target="_top">
-<img src="https://travis-ci.org/daviddenton/fintrospect.svg?branch=master"></a> 
-<a href="https://coveralls.io/r/daviddenton/fintrospect?branch=master" target="_top"><img src="https://coveralls.io/repos/daviddenton/fintrospect/badge.svg?branch=master"></a> 
-<a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion" target="_top"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg"></a> 
+<img src="https://travis-ci.org/daviddenton/fintrospect.svg?branch=master"></a>
+<a href="https://coveralls.io/r/daviddenton/fintrospect?branch=master" target="_top"><img src="https://coveralls.io/repos/daviddenton/fintrospect/badge.svg?branch=master"></a>
+<a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion" target="_top"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg"></a>
 <a href="https://bintray.com/daviddenton/maven/fintrospect/view?source=watch" target="_top"><img src="https://www.bintray.com/docs/images/bintray_badge_color.png"></a> </p>
 
-<p>Fintrospect is a bolt-on HTTP routing library for use with the <a href="http://twitter.github.io/finagle/">Finagle</a> RPC framework from Twitter. It was developed out of a desire to provide a pleasant API for describing HTTP request routing in combination with statically-typed documentation which could be verified at compile time and auto-generated at runtime (and thus avoiding the stale documentation risk that exists with manually written docs).</p>
+<p>Fintrospect is a bolt-on HTTP routing library for use with the <a href="http://twitter.github.io/finagle/" target="_top" >Finagle</a> RPC framework from Twitter. It was developed out of a desire to provide a pleasant API for describing HTTP request routing in combination with statically-typed documentation which could be verified at compile time and auto-generated at runtime (and thus avoiding the stale documentation risk that exists with manually written docs).</p>
 
 <p>Using this library, you can:</p>
 
 <ul>
 <li>Define individual HTTP routes and compose them into sensible context-based modules.</li>
-<li>Declare both required and optional parameters to be used in the following locations: <code>Path/Header/Query/Form/Body</code>. Retrieval of the parameters is simple and type-safe (<code>[T]</code> for required, <code>Option[T]</code> for optional). Custom datatypes 
+<li>Declare both required and optional parameters to be used in the following locations: <code>Path/Header/Query/Form/Body</code>. Retrieval of the parameters is simple and type-safe (<code>[T]</code> for required, <code>Option[T]</code> for optional). Custom datatypes
 for parameters are supported.</li>
-<li>Automatically generate documentation in a variety of formats (e.g. <a href="http://swagger.io/">Swagger</a> v1.2 and v2.0). Pluggable architecture for adding your own format renderers (e.g other JSON, XML).</li>
-<li>Endpoints automatically verify the presence and validity of both optional and required parameters. If any parameters are missing or invalid, a <code>BAD_REQUEST</code> response is generated - meaning that no extra validation code is required for these parameters in your controller code.</li>
+<li>Automatically generate documentation in a variety of formats (e.g. <a href="http://swagger.io/" target="_top" >Swagger</a> v1.2 and v2.0). Pluggable architecture for adding your own format renderers (e.g other JSON, XML).</li>
+<li>Endpoints automatically verify the presence and validity of both optional and required parameters (apart from the body for obvious reasons). If any parameters are missing or invalid, a <code>BAD_REQUEST</code> response is generated - meaning that no extra validation code is required for these parameters in your controller code.</li>
 <li>The library provide identification HTTP headers for dynamic-path based endpoints, removing all dynamic path elements. This allows, for example, calls to particular endpoints to be grouped for metric purposes. e.g. <code>/search/author/rowling -&gt; /search/author/{name}</code>.</li>
 </ul>
 
@@ -54,7 +54,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <h3>
 <a id="see-it" class="anchor" href="#see-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>See it</h3>
 
-<p>See the <a href="https://github.com/daviddenton/fintrospect/tree/master/src/test/scala/examples">example code</a>.</p>
+<p>See the <a href="https://github.com/daviddenton/fintrospect/tree/master/src/test/scala/examples" target="_top" >example code</a>.</p>
 
 <h3>
 <a id="learn-it" class="anchor" href="#learn-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Learn it</h3>
@@ -67,7 +67,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 
 <p>This module will have a single endpoint <code>search</code>:</p>
 
-<div class="highlight highlight-scala"><pre><span class="pl-k">val</span> <span class="pl-en">apiInfo</span> <span class="pl-k">=</span> <span class="pl-en">ApiInfo</span>(<span class="pl-s"><span class="pl-pds">"</span>Library Example<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span>, <span class="pl-en">Option</span>(<span class="pl-s"><span class="pl-pds">"</span>Simple description<span class="pl-pds">"</span></span>))
+<div class="highlight highlight-scala"><pre><span class="pl-k">val</span> <span class="pl-en">apiInfo</span> <span class="pl-k">=</span> <span class="pl-en">ApiInfo</span>(<span class="pl-s"><span class="pl-pds">"</span>Library Example<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span>, <span class="pl-en">Some</span>(<span class="pl-s"><span class="pl-pds">"</span>Simple description<span class="pl-pds">"</span></span>))
 <span class="pl-k">val</span> <span class="pl-en">renderer</span> <span class="pl-k">=</span> <span class="pl-en">Swagger2dot0Json</span>(apiInfo) <span class="pl-c">// choose your renderer implementation</span>
 <span class="pl-k">val</span> <span class="pl-en">libraryModule</span> <span class="pl-k">=</span> <span class="pl-en">FintrospectModule</span>(<span class="pl-en">Root</span> <span class="pl-k">/</span> <span class="pl-s"><span class="pl-pds">"</span>library<span class="pl-pds">"</span></span>, renderer)
     .withRoute(<span class="pl-k">new</span> <span class="pl-en">BookSearch</span>(<span class="pl-k">new</span> <span class="pl-en">BookRepo</span>()).route)
@@ -116,17 +116,17 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <h3>
 <a id="upgrading" class="anchor" href="#upgrading" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrading?</h3>
 
-<p>See the <a href="https://github.com/daviddenton/fintrospect/blob/master/RELEASE.md">Roadmap/Release Notes/Migration Guide</a></p>
+<p>See the <a href="https://github.com/daviddenton/fintrospect/blob/master/RELEASE.md" target="_top" >Roadmap/Release Notes/Migration Guide</a></p>
 
       <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/daviddenton/fintrospect">Fintrospect</a> is maintained by <a href="https://github.com/daviddenton">daviddenton</a>.</span>
+        <span class="site-footer-owner"><a href="https://github.com/daviddenton/fintrospect" target="_top" >Fintrospect</a> is maintained by <a href="https://github.com/daviddenton" target="_top" >daviddenton</a>.</span>
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+        <span class="site-footer-credits">Using the <a href="https://github.com/jasonlong/cayman-theme" target="_top" >Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
 
     </section>
 
-  
+
   </body>
 </html>
 
