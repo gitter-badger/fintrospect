@@ -13,9 +13,9 @@
     <section class="page-header">
       <h1 class="project-name">Fintrospect</h1>
       <h2 class="project-tagline"></h2>
-      <a href="https://github.com/daviddenton/fintrospect" target="_top" class="btn">View on GitHub</a>
-      <a href="https://github.com/daviddenton/fintrospect/zipball/master" target="_top" class="btn">Download .zip</a>
-      <a href="https://github.com/daviddenton/fintrospect/tarball/master" target="_top" class="btn">Download .tar.gz</a>
+      <a href="https://github.com/daviddenton/fintrospect" class="btn">View on GitHub</a>
+      <a href="https://github.com/daviddenton/fintrospect/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/daviddenton/fintrospect/tarball/master" class="btn">Download .tar.gz</a>
     </section>
 
     <section class="main-content">
@@ -36,8 +36,8 @@
 <li>Define individual HTTP routes and compose them into sensible context-based modules.</li>
 <li>Declare both required and optional parameters to be used in the following locations: <code>Path/Header/Query/Form/Body</code>. Retrieval of the parameters is simple and type-safe (<code>[T]</code> for required, <code>Option[T]</code> for optional). Custom datatypes 
 for parameters are supported.</li>
-<li>Automatically generate documentation in a variety of formats (e.g. <a href="http://swagger.io/" target="_top" >Swagger</a> v1.2 and v2.0). Pluggable architecture for adding your own format renderers (e.g other JSON, XML).</li>
-<li>Endpoints automatically verify the presence and validity of both optional and required parameters (apart from the body for obvious reasons). If any parameters are missing or invalid, a <code>BAD_REQUEST</code> response is generated - meaning that no extra validation code is required for these parameters in your controller code.</li>
+<li>Automatically generate documentation in a variety of formats (e.g. <a href="http://swagger.io/">Swagger</a> v1.2 and v2.0). Pluggable architecture for adding your own format renderers (e.g other JSON, XML).</li>
+<li>Endpoints automatically verify the presence and validity of both optional and required parameters. If any parameters are missing or invalid, a <code>BAD_REQUEST</code> response is generated - meaning that no extra validation code is required for these parameters in your controller code.</li>
 <li>The library provide identification HTTP headers for dynamic-path based endpoints, removing all dynamic path elements. This allows, for example, calls to particular endpoints to be grouped for metric purposes. e.g. <code>/search/author/rowling -&gt; /search/author/{name}</code>.</li>
 </ul>
 
@@ -54,7 +54,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <h3>
 <a id="see-it" class="anchor" href="#see-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>See it</h3>
 
-<p>See the <a href="https://github.com/daviddenton/fintrospect/tree/master/src/test/scala/examples" target="_top" >example code</a>.</p>
+<p>See the <a href="https://github.com/daviddenton/fintrospect/tree/master/src/test/scala/examples">example code</a>.</p>
 
 <h3>
 <a id="learn-it" class="anchor" href="#learn-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Learn it</h3>
@@ -67,7 +67,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 
 <p>This module will have a single endpoint <code>search</code>:</p>
 
-<div class="highlight highlight-scala"><pre><span class="pl-k">val</span> <span class="pl-en">apiInfo</span> <span class="pl-k">=</span> <span class="pl-en">ApiInfo</span>(<span class="pl-s"><span class="pl-pds">"</span>Library Example<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span>, <span class="pl-en">Some</span>(<span class="pl-s"><span class="pl-pds">"</span>Simple description<span class="pl-pds">"</span></span>))
+<div class="highlight highlight-scala"><pre><span class="pl-k">val</span> <span class="pl-en">apiInfo</span> <span class="pl-k">=</span> <span class="pl-en">ApiInfo</span>(<span class="pl-s"><span class="pl-pds">"</span>Library Example<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span>, <span class="pl-en">Option</span>(<span class="pl-s"><span class="pl-pds">"</span>Simple description<span class="pl-pds">"</span></span>))
 <span class="pl-k">val</span> <span class="pl-en">renderer</span> <span class="pl-k">=</span> <span class="pl-en">Swagger2dot0Json</span>(apiInfo) <span class="pl-c">// choose your renderer implementation</span>
 <span class="pl-k">val</span> <span class="pl-en">libraryModule</span> <span class="pl-k">=</span> <span class="pl-en">FintrospectModule</span>(<span class="pl-en">Root</span> <span class="pl-k">/</span> <span class="pl-s"><span class="pl-pds">"</span>library<span class="pl-pds">"</span></span>, renderer)
     .withRoute(<span class="pl-k">new</span> <span class="pl-en">BookSearch</span>(<span class="pl-k">new</span> <span class="pl-en">BookRepo</span>()).route)
@@ -80,24 +80,27 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <p>This example is quite contrived (and almost all the code is optional) but shows the kind of thing that can be done. Note the use of the example response object, which will be broken down to provide the JSON model for the Swagger documentation.</p>
 
 <div class="highlight highlight-scala"><pre><span class="pl-k">class</span> <span class="pl-en">BookSearch</span>(<span class="pl-v">books</span>: <span class="pl-en">Books</span>) {
-  <span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-en">MAX_PAGES</span> <span class="pl-k">=</span> <span class="pl-en">Query</span>.optional.int(<span class="pl-s"><span class="pl-pds">"</span>maxPages<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>max number of pages in book<span class="pl-pds">"</span></span>)
-  <span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-en">MIN_PAGES</span> <span class="pl-k">=</span> <span class="pl-en">Form</span>.required.int(<span class="pl-s"><span class="pl-pds">"</span>minPages<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>min number of pages in book<span class="pl-pds">"</span></span>)
-  <span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-en">TITLE_TERM</span> <span class="pl-k">=</span> <span class="pl-en">Path</span>.string(<span class="pl-s"><span class="pl-pds">"</span>term<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>the part of the title to look for<span class="pl-pds">"</span></span>)
+  <span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-en">maxPages</span> <span class="pl-k">=</span> <span class="pl-en">Query</span>.optional.int(<span class="pl-s"><span class="pl-pds">"</span>maxPages<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>max number of pages in book<span class="pl-pds">"</span></span>)
+  <span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-en">minPages</span> <span class="pl-k">=</span> <span class="pl-en">FormField</span>.optional.int(<span class="pl-s"><span class="pl-pds">"</span>minPages<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>min number of pages in book<span class="pl-pds">"</span></span>)
+  <span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-en">titleTerm</span> <span class="pl-k">=</span> <span class="pl-en">FormField</span>.required.string(<span class="pl-s"><span class="pl-pds">"</span>term<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>the part of the title to look for<span class="pl-pds">"</span></span>)
+  <span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-en">form</span> <span class="pl-k">=</span> <span class="pl-en">Body</span>.form(minPages, titleTerm)
 
-  <span class="pl-k">private</span> <span class="pl-k">def</span> <span class="pl-en">search</span>(<span class="pl-v">titleTerm</span>: <span class="pl-k">String</span>) <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Service</span>[<span class="pl-en">HttpRequest</span>, <span class="pl-en">HttpResponse</span>] {
+  <span class="pl-k">private</span> <span class="pl-k">def</span> <span class="pl-en">search</span>() <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Service</span>[<span class="pl-en">HttpRequest</span>, <span class="pl-en">HttpResponse</span>] {
     <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">apply</span>(<span class="pl-v">request</span>: <span class="pl-en">HttpRequest</span>)<span class="pl-k">:</span> <span class="pl-en">Future</span>[<span class="pl-en">HttpResponse</span>] <span class="pl-k">=</span> {
-      <span class="pl-en">Ok</span>(array(books.search(<span class="pl-en">MIN_PAGES</span>.from(request), <span class="pl-en">MAX_PAGES</span>.from(request).getOrElse(<span class="pl-en">Integer</span>.<span class="pl-en">MAX_VALUE</span>), titleTerm).map(_.toJson)))
+      <span class="pl-k">val</span> <span class="pl-en">requestForm</span> <span class="pl-k">=</span> form.from(request)
+      <span class="pl-en">Ok</span>(array(books.search(minPages.from(requestForm).getOrElse(<span class="pl-en">MIN_VALUE</span>),
+        maxPages.from(request).getOrElse(<span class="pl-en">MAX_VALUE</span>),
+        titleTerm.from(requestForm)).map(_.toJson)))
     }
   }
 
   <span class="pl-k">val</span> <span class="pl-en">route</span> <span class="pl-k">=</span> <span class="pl-en">DescribedRoute</span>(<span class="pl-s"><span class="pl-pds">"</span>search for books<span class="pl-pds">"</span></span>)
     .taking(maxPages)
-    .taking(minPages)
-    .taking(titleTerm)
-    .returning(<span class="pl-en">OK</span> <span class="pl-k">-</span><span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>search results<span class="pl-pds">"</span></span>, array(<span class="pl-en">Book</span>(<span class="pl-s"><span class="pl-pds">"</span>a book<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>authorName<span class="pl-pds">"</span></span>, <span class="pl-c1">99</span>).toJson))
-    .returning(<span class="pl-en">BAD_REQUEST</span> <span class="pl-k">-</span><span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>invalid request<span class="pl-pds">"</span></span>)
+    .body(form)
+    .returning(<span class="pl-en">OK</span> <span class="pl-k">-</span><span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>we found your book<span class="pl-pds">"</span></span>, array(<span class="pl-en">Book</span>(<span class="pl-s"><span class="pl-pds">"</span>a book<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>authorName<span class="pl-pds">"</span></span>, <span class="pl-c1">99</span>).toJson))
+    .returning(<span class="pl-en">OK</span> <span class="pl-k">-</span><span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>results<span class="pl-pds">"</span></span>, <span class="pl-en">BAD_REQUEST</span> <span class="pl-k">-</span><span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>invalid request<span class="pl-pds">"</span></span>)
     .producing(<span class="pl-en">APPLICATION_JSON</span>)
-    .at(<span class="pl-en">POST</span>) <span class="pl-k">/</span> <span class="pl-s"><span class="pl-pds">"</span>search<span class="pl-pds">"</span></span> <span class="pl-k">/</span> <span class="pl-en">TITLE_TERM</span> bindTo search
+    .at(<span class="pl-en">POST</span>) <span class="pl-k">/</span> <span class="pl-s"><span class="pl-pds">"</span>search<span class="pl-pds">"</span></span> bindTo search
 }</pre></div>
 
 <h5>
@@ -113,12 +116,12 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <h3>
 <a id="upgrading" class="anchor" href="#upgrading" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrading?</h3>
 
-<p>See the <a href="https://github.com/daviddenton/fintrospect/blob/master/RELEASE.md" target="_top" >Roadmap/Release Notes/Migration Guide</a></p>
+<p>See the <a href="https://github.com/daviddenton/fintrospect/blob/master/RELEASE.md">Roadmap/Release Notes/Migration Guide</a></p>
 
       <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/daviddenton/fintrospect" target="_top" >Fintrospect</a> is maintained by <a href="https://github.com/daviddenton" target="_top" >daviddenton</a>.</span>
+        <span class="site-footer-owner"><a href="https://github.com/daviddenton/fintrospect">Fintrospect</a> is maintained by <a href="https://github.com/daviddenton">daviddenton</a>.</span>
 
-        <span class="site-footer-credits">Using the <a href="https://github.com/jasonlong/cayman-theme" target="_top" >Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
 
     </section>
