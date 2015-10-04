@@ -20,12 +20,12 @@
 
     <section class="main-content">
       <h1>
-<a id="fintrospect-" class="anchor" href="#fintrospect-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fintrospect </h1>
+<a id="fintrospect" class="anchor" href="#fintrospect" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fintrospect</h1>
 
-<p><a href="https://travis-ci.org/daviddenton/fintrospect" target="_top"><img src="https://travis-ci.org/daviddenton/fintrospect.svg?branch=master"></a> 
-<a href="http://codecov.io/github/daviddenton/fintrospect?branch=master" target="_top"><img src="http://codecov.io/github/daviddenton/fintrospect/coverage.svg?branch=master"></a> 
-<a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion" target="_top"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg"></a> 
-<a href="https://bintray.com/daviddenton/maven/fintrospect/view?source=watch" target="_top"><img src="https://www.bintray.com/docs/images/bintray_badge_color.png"></a> </p>
+<p><a href="https://travis-ci.org/daviddenton/fintrospect" target="_top"><img src="https://travis-ci.org/daviddenton/fintrospect.svg?branch=master"></a>
+<a href="http://codecov.io/github/daviddenton/fintrospect?branch=master" target="_top"><img src="http://codecov.io/github/daviddenton/fintrospect/coverage.svg?branch=master"></a>
+<a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion" target="_top"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg"></a>
+<a href="https://bintray.com/daviddenton/maven/fintrospect/view?source=watch" target="_top"><img src="https://www.bintray.com/docs/images/bintray_badge_color.png"></a></p>
 
 <p>Fintrospect is a bolt-on HTTP routing library for use with the <a href="http://twitter.github.io/finagle/" target="_top">Finagle</a>  RPC framework from Twitter. It was developed out of a desire to provide a pleasant API for describing HTTP request routing in combination with statically-typed documentation which could be verified at compile time and auto-generated at runtime (and thus avoiding the stale documentation risk that exists with manually written docs).</p>
 
@@ -33,12 +33,12 @@
 
 <ul>
 <li>Define individual HTTP routes and compose them into sensible context-based modules.</li>
-<li>Declare both required and optional parameters to be used in the following locations: <code>Path/Header/Query/Form/Body</code>. Retrieval of the parameters is simple and type-safe (<code>[T]</code> for required, <code>Option[T]</code> for optional). Custom datatypes 
+<li>Declare both required and optional parameters to be used in the following locations: <code>Path/Header/Query/Form/Body</code>. Retrieval of the parameters is simple and type-safe (<code>[T]</code> for required, <code>Option[T]</code> for optional). Custom datatypes
 for parameters are supported. Also support for typesafe conversions of custom types.</li>
 <li>Automatically generate documentation in a variety of formats (e.g. <a href="http://swagger.io/" target="_top">Swagger</a> v1.1 and v2.0). Pluggable architecture for adding your own format renderers (e.g other JSON, XML).</li>
 <li>Endpoints automatically verify the presence and validity of both optional and required parameters. If any parameters are missing or invalid, a <code>BAD_REQUEST</code> response is generated - meaning that no extra validation code is required for these parameters in your controller code.</li>
 <li>The library provide identification HTTP headers for dynamic-path based endpoints, removing all dynamic path elements. This allows, for example, calls to particular endpoints to be grouped for metric purposes. e.g. <code>/search/author/rowling -&gt; /search/author/{name}</code>.</li>
-<li>Define HTTP Client endpoints APIs which reuse the same syntax and parameter bindings as the server-side, which means that you can use the same route specification to define both sides of the transport boundary. This allows, for example, 
+<li>Define HTTP Client endpoints APIs which reuse the same syntax and parameter bindings as the server-side, which means that you can use the same route specification to define both sides of the transport boundary. This allows, for example,
 the HTTP API of a downstream servers (for a fake) to be created with no effort, and exactly matching the client side. These endpoints are also exposed as simple functions.</li>
 <li>A set of HTTP Response builders with pluggable extension points for custom formats; currently supported are:
 
@@ -58,7 +58,7 @@ the HTTP API of a downstream servers (for a fake) to be created with no effort, 
 and it has built against the version below:</p>
 
 <div class="highlight highlight-source-scala"><pre>resolvers <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>JCenter<span class="pl-pds">"</span></span> at <span class="pl-s"><span class="pl-pds">"</span>https://jcenter.bintray.com<span class="pl-pds">"</span></span>
-libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>com.twitter<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s"><span class="pl-pds">"</span>finagle-http<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s"><span class="pl-pds">"</span>6.27.0<span class="pl-pds">"</span></span>
+libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>com.twitter<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s"><span class="pl-pds">"</span>finagle-httpx<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s"><span class="pl-pds">"</span>6.29.0<span class="pl-pds">"</span></span>
 libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>io.github.daviddenton<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s"><span class="pl-pds">"</span>fintrospect<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s"><span class="pl-pds">"</span>X.X.X<span class="pl-pds">"</span></span></pre></div>
 
 <p>Additionally, to activate any message formats other than Argo JSON and native XML you'll need to import the relevant libraries (e.g. Json4S native/jackson), since only the bindings are included in the Fintrospect JAR.</p>
@@ -87,7 +87,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <span class="pl-k">val</span> <span class="pl-en">libraryModule</span> <span class="pl-k">=</span> <span class="pl-en">FintrospectModule</span>(<span class="pl-en">Root</span> <span class="pl-k">/</span> <span class="pl-s"><span class="pl-pds">"</span>library<span class="pl-pds">"</span></span>, renderer)
     .withRoute(<span class="pl-k">new</span> <span class="pl-en">BookSearch</span>(<span class="pl-k">new</span> <span class="pl-en">BookRepo</span>()).route)
 <span class="pl-k">val</span> <span class="pl-en">service</span> <span class="pl-k">=</span> <span class="pl-en">FintrospectModule</span>.toService(libraryModule)
-<span class="pl-en">Http</span>.serve(<span class="pl-s"><span class="pl-pds">"</span>:8080<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-en">CorsFilter</span>(<span class="pl-en">Cors</span>.<span class="pl-en">UnsafePermissivePolicy</span>).andThen(service))</pre></div>
+<span class="pl-en">Httpx</span>.serve(<span class="pl-s"><span class="pl-pds">"</span>:8080<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-en">CorsFilter</span>(<span class="pl-en">Cors</span>.<span class="pl-en">UnsafePermissivePolicy</span>).andThen(service))</pre></div>
 
 <h5>
 <a id="define-the-endpoint" class="anchor" href="#define-the-endpoint" aria-hidden="true"><span class="octicon octicon-link"></span></a>Define the endpoint</h5>
@@ -100,10 +100,10 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
   <span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-en">titleTerm</span> <span class="pl-k">=</span> <span class="pl-en">FormField</span>.required.string(<span class="pl-s"><span class="pl-pds">"</span>term<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>the part of the title to look for<span class="pl-pds">"</span></span>)
   <span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-en">form</span> <span class="pl-k">=</span> <span class="pl-en">Body</span>.form(minPages, titleTerm)
 
-  <span class="pl-k">private</span> <span class="pl-k">def</span> <span class="pl-en">search</span>() <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Service</span>[<span class="pl-en">HttpRequest</span>, <span class="pl-en">HttpResponse</span>] {
-    <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">apply</span>(<span class="pl-v">request</span>: <span class="pl-en">HttpRequest</span>)<span class="pl-k">:</span> <span class="pl-en">Future</span>[<span class="pl-en">HttpResponse</span>] <span class="pl-k">=</span> {
+  <span class="pl-k">private</span> <span class="pl-k">def</span> <span class="pl-en">search</span>() <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Service</span>[<span class="pl-en">Request</span>, <span class="pl-en">Response</span>] {
+    <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">apply</span>(<span class="pl-v">request</span>: <span class="pl-en">Request</span>)<span class="pl-k">:</span> <span class="pl-en">Future</span>[<span class="pl-en">Response</span>] <span class="pl-k">=</span> {
       <span class="pl-k">val</span> <span class="pl-en">requestForm</span> <span class="pl-k">=</span> form.from(request)
-      <span class="pl-en">Ok</span>(array(books.search(minPages.from(requestForm).getOrElse(<span class="pl-en">MIN_VALUE</span>),
+      <span class="pl-en">OK</span>(array(books.search(minPages.from(requestForm).getOrElse(<span class="pl-en">MIN_VALUE</span>),
         maxPages.from(request).getOrElse(<span class="pl-en">MAX_VALUE</span>),
         titleTerm.from(requestForm)).map(_.toJson)))
     }
@@ -112,10 +112,10 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
   <span class="pl-k">val</span> <span class="pl-en">route</span> <span class="pl-k">=</span> <span class="pl-en">RouteSpec</span>(<span class="pl-s"><span class="pl-pds">"</span>search for books<span class="pl-pds">"</span></span>)
     .taking(maxPages)
     .body(form)
-    .returning(<span class="pl-en">OK</span> <span class="pl-k">-</span><span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>we found your book<span class="pl-pds">"</span></span>, array(<span class="pl-en">Book</span>(<span class="pl-s"><span class="pl-pds">"</span>a book<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>authorName<span class="pl-pds">"</span></span>, <span class="pl-c1">99</span>).toJson))
-    .returning(<span class="pl-en">OK</span> <span class="pl-k">-</span><span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>results<span class="pl-pds">"</span></span>, <span class="pl-en">BAD_REQUEST</span> <span class="pl-k">-</span><span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>invalid request<span class="pl-pds">"</span></span>)
+    .returning(<span class="pl-en">Ok</span> <span class="pl-k">-</span><span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>we found your book<span class="pl-pds">"</span></span>, array(<span class="pl-en">Book</span>(<span class="pl-s"><span class="pl-pds">"</span>a book<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>authorName<span class="pl-pds">"</span></span>, <span class="pl-c1">99</span>).toJson))
+    .returning(<span class="pl-en">BadRequest</span> <span class="pl-k">-</span><span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>invalid request<span class="pl-pds">"</span></span>)
     .producing(<span class="pl-en">APPLICATION_JSON</span>)
-    .at(<span class="pl-en">POST</span>) <span class="pl-k">/</span> <span class="pl-s"><span class="pl-pds">"</span>search<span class="pl-pds">"</span></span> bindTo search
+    .at(<span class="pl-en">Post</span>) <span class="pl-k">/</span> <span class="pl-s"><span class="pl-pds">"</span>search<span class="pl-pds">"</span></span> bindTo search
 }</pre></div>
 
 <h5>
@@ -126,7 +126,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <h4>
 <a id="client-side" class="anchor" href="#client-side" aria-hidden="true"><span class="octicon octicon-link"></span></a>Client-side</h4>
 
-<p>Declare the fields to be sent to the client service and then bind them to a remote service. This produces a simple function, which can then be called with the bindings for each parameter. </p>
+<p>Declare the fields to be sent to the client service and then bind them to a remote service. This produces a simple function, which can then be called with the bindings for each parameter.</p>
 
 <div class="highlight highlight-source-scala"><pre>  <span class="pl-k">val</span> <span class="pl-en">httpClient</span> <span class="pl-k">=</span> <span class="pl-en">Http</span>.newService(<span class="pl-s"><span class="pl-pds">"</span>localhost:10000<span class="pl-pds">"</span></span>)
 
@@ -138,7 +138,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
   <span class="pl-k">val</span> <span class="pl-en">formClient</span> <span class="pl-k">=</span> <span class="pl-en">RouteSpec</span>()
     .taking(gender)
     .body(body)
-    .at(<span class="pl-en">GET</span>) <span class="pl-k">/</span> <span class="pl-s"><span class="pl-pds">"</span>firstSection<span class="pl-pds">"</span></span> <span class="pl-k">/</span> theUser bindToClient httpClient
+    .at(<span class="pl-en">Get</span>) <span class="pl-k">/</span> <span class="pl-s"><span class="pl-pds">"</span>firstSection<span class="pl-pds">"</span></span> <span class="pl-k">/</span> theUser bindToClient httpClient
 
   <span class="pl-k">val</span> <span class="pl-en">theCall</span> <span class="pl-k">=</span> formClient(gender <span class="pl-k">--</span><span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>female<span class="pl-pds">"</span></span>, body <span class="pl-k">--</span><span class="pl-k">&gt;</span> <span class="pl-en">Form</span>(theDate <span class="pl-k">--</span><span class="pl-k">&gt;</span> <span class="pl-en">LocalDate</span>.of(<span class="pl-c1">2015</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>)), theUser <span class="pl-k">--</span><span class="pl-k">&gt;</span> <span class="pl-en">System</span>.getenv(<span class="pl-s"><span class="pl-pds">"</span>USER<span class="pl-pds">"</span></span>))
 
@@ -157,7 +157,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <h3>
 <a id="contributions" class="anchor" href="#contributions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributions</h3>
 
-<p>If there are any message format libraries bindings that you'd like to see included, then please feel free to suggest them or provide a PR. For JSON formats, this 
+<p>If there are any message format libraries bindings that you'd like to see included, then please feel free to suggest them or provide a PR. For JSON formats, this
 is particularly easy to implement - just provide an implementation of <code>JsonLibrary</code> by following the <code>Argo</code> example in the source.</p>
 
       <footer class="site-footer">
