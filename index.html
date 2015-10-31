@@ -45,7 +45,7 @@ the HTTP API of a downstream servers (for a fake) to be created with no effort, 
 <ul>
 <li>Argo JSON (Java)</li>
 <li>Argonaut JSON (v6.0.X compatible) (v10.1.X+)</li>
-<li>Json4s (v3.2.X compatible) Native &amp; Jackson (v9+)</li>
+<li>Json4s (v3.2.X+ compatible) Native &amp; Jackson (v9+)</li>
 <li>Play JSON (v2.4.X compatible) (v10.2.X+)</li>
 <li>Spray JSON (v9+)</li>
 <li>Scala native XML</li>
@@ -60,7 +60,7 @@ the HTTP API of a downstream servers (for a fake) to be created with no effort, 
 and it has built against the version below:</p>
 
 <div class="highlight highlight-source-scala"><pre>resolvers <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>JCenter<span class="pl-pds">"</span></span> at <span class="pl-s"><span class="pl-pds">"</span>https://jcenter.bintray.com<span class="pl-pds">"</span></span>
-libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>com.twitter<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s"><span class="pl-pds">"</span>finagle-httpx<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s"><span class="pl-pds">"</span>6.29.0<span class="pl-pds">"</span></span>
+libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>com.twitter<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s"><span class="pl-pds">"</span>finagle-http<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s"><span class="pl-pds">"</span>6.30.0<span class="pl-pds">"</span></span>
 libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>io.github.daviddenton<span class="pl-pds">"</span></span> <span class="pl-k">%%</span> <span class="pl-s"><span class="pl-pds">"</span>fintrospect<span class="pl-pds">"</span></span> <span class="pl-k">%</span> <span class="pl-s"><span class="pl-pds">"</span>X.X.X<span class="pl-pds">"</span></span></pre></div>
 
 <p>Additionally, to activate any message formats other than Argo JSON and native XML you'll need to import the relevant libraries (e.g. Json4S native/jackson), since only the bindings are included in the Fintrospect JAR.</p>
@@ -89,7 +89,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <span class="pl-k">val</span> <span class="pl-en">libraryModule</span> <span class="pl-k">=</span> <span class="pl-en">FintrospectModule</span>(<span class="pl-en">Root</span> <span class="pl-k">/</span> <span class="pl-s"><span class="pl-pds">"</span>library<span class="pl-pds">"</span></span>, renderer)
     .withRoute(<span class="pl-k">new</span> <span class="pl-en">BookSearch</span>(<span class="pl-k">new</span> <span class="pl-en">BookRepo</span>()).route)
 <span class="pl-k">val</span> <span class="pl-en">service</span> <span class="pl-k">=</span> <span class="pl-en">FintrospectModule</span>.toService(libraryModule)
-<span class="pl-en">Httpx</span>.serve(<span class="pl-s"><span class="pl-pds">"</span>:8080<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-en">CorsFilter</span>(<span class="pl-en">Cors</span>.<span class="pl-en">UnsafePermissivePolicy</span>).andThen(service))</pre></div>
+<span class="pl-en">Httpx</span>.serve(<span class="pl-s"><span class="pl-pds">"</span>:8080<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-en">HttpFilter</span>(<span class="pl-en">Cors</span>.<span class="pl-en">UnsafePermissivePolicy</span>).andThen(service))</pre></div>
 
 <h5>
 <a id="define-the-endpoint" class="anchor" href="#define-the-endpoint" aria-hidden="true"><span class="octicon octicon-link"></span></a>Define the endpoint</h5>
