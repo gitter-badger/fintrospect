@@ -89,7 +89,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <span class="pl-k">val</span> <span class="pl-en">libraryModule</span> <span class="pl-k">=</span> <span class="pl-en">FintrospectModule</span>(<span class="pl-en">Root</span> <span class="pl-k">/</span> <span class="pl-s"><span class="pl-pds">"</span>library<span class="pl-pds">"</span></span>, renderer)
     .withRoute(<span class="pl-k">new</span> <span class="pl-en">BookSearch</span>(<span class="pl-k">new</span> <span class="pl-en">BookRepo</span>()).route)
 <span class="pl-k">val</span> <span class="pl-en">service</span> <span class="pl-k">=</span> <span class="pl-en">FintrospectModule</span>.toService(libraryModule)
-<span class="pl-en">Httpx</span>.serve(<span class="pl-s"><span class="pl-pds">"</span>:8080<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-en">HttpFilter</span>(<span class="pl-en">Cors</span>.<span class="pl-en">UnsafePermissivePolicy</span>).andThen(service))</pre></div>
+<span class="pl-en">Http</span>.serve(<span class="pl-s"><span class="pl-pds">"</span>:8080<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-en">HttpFilter</span>(<span class="pl-en">Cors</span>.<span class="pl-en">UnsafePermissivePolicy</span>).andThen(service)) <span class="pl-c">// remember to make your own Cors Policy for prod!</span></pre></div>
 
 <h5>
 <a id="define-the-endpoint" class="anchor" href="#define-the-endpoint" aria-hidden="true"><span class="octicon octicon-link"></span></a>Define the endpoint</h5>
@@ -105,7 +105,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
   <span class="pl-k">private</span> <span class="pl-k">def</span> <span class="pl-en">search</span>() <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Service</span>[<span class="pl-en">Request</span>, <span class="pl-en">Response</span>] {
     <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">apply</span>(<span class="pl-v">request</span>: <span class="pl-en">Request</span>)<span class="pl-k">:</span> <span class="pl-en">Future</span>[<span class="pl-en">Response</span>] <span class="pl-k">=</span> {
       <span class="pl-k">val</span> <span class="pl-en">requestForm</span> <span class="pl-k">=</span> form.from(request)
-      <span class="pl-en">OK</span>(array(books.search(minPages.from(requestForm).getOrElse(<span class="pl-en">MIN_VALUE</span>),
+      <span class="pl-en">Ok</span>(array(books.search(minPages.from(requestForm).getOrElse(<span class="pl-en">MIN_VALUE</span>),
         maxPages.from(request).getOrElse(<span class="pl-en">MAX_VALUE</span>),
         titleTerm.from(requestForm)).map(_.toJson)))
     }
