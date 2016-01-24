@@ -20,7 +20,7 @@
 
     <section class="main-content">
       <h1>
-<a id="fintrospect" class="anchor" href="#fintrospect" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fintrospect</h1>
+<a id="fintrospect" class="anchor" href="#fintrospect" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fintrospect</h1>
 
 <p><a href="https://travis-ci.org/daviddenton/fintrospect" target="_top"><img src="https://travis-ci.org/daviddenton/fintrospect.svg?branch=master"></a>
 <a href="https://coveralls.io/github/daviddenton/fintrospect?branch=master" target="_top"><img src="https://coveralls.io/repos/daviddenton/fintrospect/badge.svg?branch=master"></a>
@@ -55,7 +55,7 @@ the HTTP API of a downstream servers (for a fake) to be created with no effort, 
 </ul>
 
 <h3>
-<a id="get-it" class="anchor" href="#get-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get it</h3>
+<a id="get-it" class="anchor" href="#get-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get it</h3>
 
 <p>Add the following lines to <code>build.sbt</code>. Note that this library doesn't depend on a particular version of Finagle,
 and it has built against the version below:</p>
@@ -67,20 +67,20 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <p>Additionally, to activate any message formats other than Argo JSON and native XML you'll need to import the relevant libraries (e.g. Json4S native/jackson), since only the bindings are included in the Fintrospect JAR.</p>
 
 <h3>
-<a id="see-it" class="anchor" href="#see-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>See it</h3>
+<a id="see-it" class="anchor" href="#see-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>See it</h3>
 
 <p>See the <a href="https://github.com/daviddenton/fintrospect/tree/master/src/test/scala/examples" target="_top">example code</a>.</p>
 
 <h3>
-<a id="learn-it" class="anchor" href="#learn-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Learn it</h3>
+<a id="learn-it" class="anchor" href="#learn-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Learn it</h3>
 
 <h4>
-<a id="server-side" class="anchor" href="#server-side" aria-hidden="true"><span class="octicon octicon-link"></span></a>Server-side</h4>
+<a id="server-side" class="anchor" href="#server-side" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Server-side</h4>
 
 <p>Adding Fintrospect routes to a Finagle HTTP server is simple. For this example, we'll imagine a Library application (see the example above for the full code) which will be rendering Swagger v2 documentation.</p>
 
 <h5>
-<a id="define-a-module-to-live-at-httphost8080library" class="anchor" href="#define-a-module-to-live-at-httphost8080library" aria-hidden="true"><span class="octicon octicon-link"></span></a>Define a module to live at <code>http://{host}:8080/library</code>
+<a id="define-a-module-to-live-at-httphost8080library" class="anchor" href="#define-a-module-to-live-at-httphost8080library" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Define a module to live at <code>http://{host}:8080/library</code>
 </h5>
 
 <p>This module will have a single endpoint <code>search</code>:</p>
@@ -93,7 +93,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <span class="pl-en">Http</span>.serve(<span class="pl-s"><span class="pl-pds">"</span>:8080<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-en">HttpFilter</span>(<span class="pl-en">Cors</span>.<span class="pl-en">UnsafePermissivePolicy</span>).andThen(service)) <span class="pl-c">// remember to make your own Cors Policy for prod!</span></pre></div>
 
 <h5>
-<a id="define-the-endpoint" class="anchor" href="#define-the-endpoint" aria-hidden="true"><span class="octicon octicon-link"></span></a>Define the endpoint</h5>
+<a id="define-the-endpoint" class="anchor" href="#define-the-endpoint" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Define the endpoint</h5>
 
 <p>This example is quite contrived (and almost all the code is optional) but shows the kind of thing that can be done. Note the use of the example response object, which will be broken down to provide the JSON model for the Swagger documentation.</p>
 
@@ -122,12 +122,12 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 }</pre></div>
 
 <h5>
-<a id="view-the-generated-documentation" class="anchor" href="#view-the-generated-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>View the generated documentation</h5>
+<a id="view-the-generated-documentation" class="anchor" href="#view-the-generated-documentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>View the generated documentation</h5>
 
 <p>The auto-generated documentation lives at the root of the module, so point the Swagger UI at <code>http://{host}:8080/library</code> to see it.</p>
 
 <h4>
-<a id="client-side" class="anchor" href="#client-side" aria-hidden="true"><span class="octicon octicon-link"></span></a>Client-side</h4>
+<a id="client-side" class="anchor" href="#client-side" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Client-side</h4>
 
 <p>Declare the fields to be sent to the client service and then bind them to a remote service. This produces a simple function, which can then be called with the bindings for each parameter.</p>
 
@@ -148,17 +148,17 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
   println(<span class="pl-en">Await</span>.result(theCall))</pre></div>
 
 <h5>
-<a id="test-it" class="anchor" href="#test-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Test it</h5>
+<a id="test-it" class="anchor" href="#test-it" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Test it</h5>
 
 <p>Fintrospect ships with a testing trait <code>TestingFintrospectRoute</code>, which you can mix into your tests in order to validate your declared server-side routes.</p>
 
 <h3>
-<a id="upgrading" class="anchor" href="#upgrading" aria-hidden="true"><span class="octicon octicon-link"></span></a>Upgrading?</h3>
+<a id="upgrading" class="anchor" href="#upgrading" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Upgrading?</h3>
 
 <p>See the <a href="https://github.com/daviddenton/fintrospect/blob/master/RELEASE.md" target="_top">Roadmap</a>.</p>
 
 <h3>
-<a id="contributions" class="anchor" href="#contributions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributions</h3>
+<a id="contributions" class="anchor" href="#contributions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributions</h3>
 
 <p>If there are any message format libraries bindings that you'd like to see included, then please feel free to suggest them or provide a PR. For JSON formats, this
 is particularly easy to implement - just provide an implementation of <code>JsonLibrary</code> by following the <code>Argo</code> example in the source.</p>
