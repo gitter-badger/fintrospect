@@ -29,10 +29,10 @@
 
 <p>Fintrospect is a bolt-on HTTP routing library for use with the <a href="http://twitter.github.io/finagle/" target="_top">Finagle</a>  RPC framework from Twitter. It was developed out of a desire to provide a pleasant API for describing HTTP request routing in combination with statically-typed documentation which could be verified at compile time and auto-generated at runtime (and thus avoiding the stale documentation risk that exists with manually written docs).</p>
 
-<p>Using this library, you can:</p>
+<p>Features:</p>
 
 <ul>
-<li>Define individual HTTP routes and compose them into sensible context-based modules.</li>
+<li>Define individual HTTP routes and combine them into sensible context-based modules.</li>
 <li>Declare both required and optional parameters to be used in the following locations: <code>Path/Header/Query/Form/Body</code>. Retrieval of the parameters is simple and type-safe (<code>[T]</code> for required, <code>Option[T]</code> for optional). Custom datatypes
 for parameters are supported. Also support for typesafe conversions of custom types.</li>
 <li>Automatically generate documentation in a variety of formats (e.g. <a href="http://swagger.io/" target="_top">Swagger</a> v1.1 and v2.0). Pluggable architecture for adding your own format renderers (e.g other JSON, XML).</li>
@@ -45,6 +45,7 @@ the HTTP API of a downstream servers (for a fake) to be created with no effort, 
 <ul>
 <li>Argo JSON (3.12 compatible)</li>
 <li>Argonaut JSON (v6.0.X compatible)</li>
+<li>Circe JSON (v0.2.X compatible)</li>
 <li>GSON (v2.5 compatible)</li>
 <li>Json4s (v3.2.X compatible) Native &amp; Jackson</li>
 <li>Play JSON (v2.4.X compatible)</li>
@@ -52,6 +53,8 @@ the HTTP API of a downstream servers (for a fake) to be created with no effort, 
 <li>Spray JSON (v1.3.X compatible)</li>
 </ul>
 </li>
+<li>Template responses using Mustache (2.11 only) or Handlebars</li>
+<li>Serve static resources</li>
 </ul>
 
 <h3>
@@ -87,9 +90,9 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 
 <div class="highlight highlight-source-scala"><pre><span class="pl-k">val</span> <span class="pl-en">apiInfo</span> <span class="pl-k">=</span> <span class="pl-en">ApiInfo</span>(<span class="pl-s"><span class="pl-pds">"</span>Library Example<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span>, <span class="pl-en">Option</span>(<span class="pl-s"><span class="pl-pds">"</span>Simple description<span class="pl-pds">"</span></span>))
 <span class="pl-k">val</span> <span class="pl-en">renderer</span> <span class="pl-k">=</span> <span class="pl-en">Swagger2dot0Json</span>(apiInfo) <span class="pl-c">// choose your renderer implementation</span>
-<span class="pl-k">val</span> <span class="pl-en">libraryModule</span> <span class="pl-k">=</span> <span class="pl-en">FintrospectModule</span>(<span class="pl-en">Root</span> <span class="pl-k">/</span> <span class="pl-s"><span class="pl-pds">"</span>library<span class="pl-pds">"</span></span>, renderer)
+<span class="pl-k">val</span> <span class="pl-en">libraryModule</span> <span class="pl-k">=</span> <span class="pl-en">ModuleSpec</span>(<span class="pl-en">Root</span> <span class="pl-k">/</span> <span class="pl-s"><span class="pl-pds">"</span>library<span class="pl-pds">"</span></span>, renderer)
     .withRoute(<span class="pl-k">new</span> <span class="pl-en">BookSearch</span>(<span class="pl-k">new</span> <span class="pl-en">BookRepo</span>()).route)
-<span class="pl-k">val</span> <span class="pl-en">service</span> <span class="pl-k">=</span> <span class="pl-en">FintrospectModule</span>.toService(libraryModule)
+<span class="pl-k">val</span> <span class="pl-en">service</span> <span class="pl-k">=</span> <span class="pl-en">Module</span>.toService(libraryModule)
 <span class="pl-en">Http</span>.serve(<span class="pl-s"><span class="pl-pds">"</span>:8080<span class="pl-pds">"</span></span>, <span class="pl-k">new</span> <span class="pl-en">HttpFilter</span>(<span class="pl-en">Cors</span>.<span class="pl-en">UnsafePermissivePolicy</span>).andThen(service)) <span class="pl-c">// remember to make your own Cors Policy for prod!</span></pre></div>
 
 <h5>
@@ -103,8 +106,8 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
   <span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-en">titleTerm</span> <span class="pl-k">=</span> <span class="pl-en">FormField</span>.required.string(<span class="pl-s"><span class="pl-pds">"</span>term<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>the part of the title to look for<span class="pl-pds">"</span></span>)
   <span class="pl-k">private</span> <span class="pl-k">val</span> <span class="pl-en">form</span> <span class="pl-k">=</span> <span class="pl-en">Body</span>.form(minPages, titleTerm)
 
-  <span class="pl-k">private</span> <span class="pl-k">def</span> <span class="pl-en">search</span>() <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Service</span>[<span class="pl-en">Request</span>, <span class="pl-en">Response</span>] {
-    <span class="pl-k">override</span> <span class="pl-k">def</span> <span class="pl-en">apply</span>(<span class="pl-v">request</span>: <span class="pl-en">Request</span>)<span class="pl-k">:</span> <span class="pl-en">Future</span>[<span class="pl-en">Response</span>] <span class="pl-k">=</span> {
+  <span class="pl-k">private</span> <span class="pl-k">def</span> <span class="pl-en">search</span>() <span class="pl-k">=</span> <span class="pl-en">Service</span>.mk[<span class="pl-en">Request</span>, <span class="pl-en">Response</span>] { 
+    request <span class="pl-k">=&gt;</span> {
       <span class="pl-k">val</span> <span class="pl-en">requestForm</span> <span class="pl-k">=</span> form.from(request)
       <span class="pl-en">Ok</span>(array(books.search(minPages.from(requestForm).getOrElse(<span class="pl-en">MIN_VALUE</span>),
         maxPages.from(request).getOrElse(<span class="pl-en">MAX_VALUE</span>),
@@ -160,7 +163,7 @@ libraryDependencies <span class="pl-k">+</span><span class="pl-k">=</span> <span
 <h3>
 <a id="contributions" class="anchor" href="#contributions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributions</h3>
 
-<p>If there are any message format libraries bindings that you'd like to see included, then please feel free to suggest them or provide a PR. For JSON formats, this
+<p>If there are any message format library or templating engine bindings that you'd like to see included, then please feel free to suggest them or provide a PR. For JSON formats, this
 is particularly easy to implement - just provide an implementation of <code>JsonLibrary</code> by following the <code>Argo</code> example in the source.</p>
 
       <footer class="site-footer">
