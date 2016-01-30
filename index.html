@@ -31,7 +31,7 @@ the HTTP API of a downstream servers (for a fake) to be created with no effort, 
 and it has built against the version below:</p>
 <pre><code class="language-scala">resolvers += &quot;JCenter&quot; at &quot;https://jcenter.bintray.com&quot;
 libraryDependencies += &quot;com.twitter&quot; %% &quot;finagle-http&quot; % &quot;6.31.0&quot;
-libraryDependencies += &quot;io.github.daviddenton&quot; %% &quot;fintrospect&quot; % &quot;X.X.X&quot;
+libraryDependencies += &quot;io.github.daviddenton&quot; %% &quot;fintrospect&quot; % &quot;12.0.2&quot;
 </code></pre>
 <p>Additionally, to activate any message formats other than Argo JSON and native XML you&#39;ll need to import the relevant libraries (e.g. Json4S native/jackson), since only the bindings are included in the Fintrospect JAR.</p>
 <h3>See it</h3><p>See the <a href="https://github.com/daviddenton/fintrospect/tree/master/src/test/scala/examples" target="_top">example code</a>.</p>
@@ -88,8 +88,7 @@ Http.serve(&quot;:8080&quot;, new HttpFilter(Cors.UnsafePermissivePolicy).andThe
   println(Await.result(theCall))
 </code></pre>
 <h5>Test it</h5><p>Fintrospect ships with a testing trait <code>TestingFintrospectRoute</code>, which you can mix into your tests in order to validate your declared server-side routes.</p>
-<p>###Upgrading?
-See the <a href="https://github.com/daviddenton/fintrospect/blob/master/RELEASE.md" target="_top">Roadmap</a>.</p>
+<h3>Upgrading?</h3><p>See the <a href="https://github.com/daviddenton/fintrospect/blob/master/RELEASE.md" target="_top">Roadmap</a>.</p>
 <h3>Contributing</h3><p>If there are any message format library or templating engine bindings that you&#39;d like to see included, then please feel free to suggest them or provide a PR. For JSON formats, this
 is particularly easy to implement - just provide an implementation of <code>JsonLibrary</code> by following the <code>Argo</code> example in the source.</p>
 </h1></article></div></div></div></main><footer>Powered by <a href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a href="http://harpjs.com">Harp</a> by <a href="http://www.jvandemo.com">Jurgen Van de Moere</a></footer></body></html>
