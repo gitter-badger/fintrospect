@@ -50,5 +50,6 @@ module context (overridable) which serves this documentation. </p>
 </code></pre><h4>security</h4><p>Module routes can secured by adding an implementation of the <code>Security</code> trait - this essentially provides a filter through which 
 all requests will be passed. An <code>ApiKey</code> implementation is bundled with the library which return an <code>401 Unauthorized</code> HTTP 
 response code when a request does not pass authentication.</p>
-<pre><code>ModuleSpec(Root / &quot;employee&quot;).securedBy(ApiKey(Header.required.string(&quot;api_key&quot;), (key: String) =&gt; Future.value(key == &quot;extremelySecretThing&quot;)))
+<pre><code>ModuleSpec(Root / &quot;employee&quot;)
+.securedBy(ApiKey(Header.required.string(&quot;api_key&quot;), (key: String) =&gt; Future.value(key == &quot;extremelySecretThing&quot;)))
 </code></pre></article></div></div></div></main><footer><span class="left">project maintained by <a href="https://github.com/daviddenton">daviddenton</a></span><span class="right"> site powered by <a href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a href="http://harpjs.com">Harp</a> by <a href="http://www.jvandemo.com">Jurgen Van de Moere</a></span><script>$(function () { $('[data-toggle="tooltip"]').tooltip() })</script></footer></body></html>
