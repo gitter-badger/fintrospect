@@ -1,20 +1,31 @@
-<!DOCTYPE html><html><head><meta charset="utf8"/><title>fintrospect</title><link rel="icon" type="image/png" href="images/eye-32px.png"/><link rel="stylesheet" href="css/global.css"/><link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans|Source+Code+Pro"/><script src="js/jquery/jquery.min.js"></script><script src="js/bootstrap/bootstrap.js"></script></head><body><header><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button data-toggle="collapse" data-target="#navbar-top-collapse-1" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">fintrospect</a></div><div id="navbar-top-collapse-1" class="collapse navbar-collapse"><ul class="nav navbar-nav navbar-right"><li><a href="https://travis-ci.org/daviddenton/fintrospect"><img src="https://travis-ci.org/daviddenton/fintrospect.svg?branch=master"/></a></li><li><a href="https://coveralls.io/github/daviddenton/fintrospect?branch=master"><img src="https://coveralls.io/repos/daviddenton/fintrospect/badge.svg?branch=master"/></a></li><li><a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg"/></a></li><li><a href="http://github.com/daviddenton/fintrospect"><img src="images/GitHub-Mark-32px.png"/></a></li></ul></div></div></nav></header><main><div class="container"><div class="row"><div class="col-sm-3"><div class="logo"><img src="images/eye.png"/></div><ul class="nav nav-pills nav-stacked nav-docs"><li><h1>guide</h1></li><li><a href=".">overview</a></li><li><a href="installation">installation</a></li><li><a href="request-parameters-and-bodies">request parameters & bodies</a></li><li><a href="defining-routes">defining routes</a></li><li class="active"><a href="server-routes">server routes</a></li><li><a href="client-routes">client routes</a></li><li><a href="building-http-responses">building http responses</a></li><li><a href="templating-and-static-content">templating and static content</a></li><li><h1>misc</h1></li><li><a href="changelog">changelog & migration</a></li></ul></div><div class="col-sm-9"><article class="article-docs"><h1>server routes &amp; modules</h1><p>A RouteSpec needs to be bound to a standard Finagle Service to receive requests. Since these are very lightweight, we create a new instance of the Service for every request, and bind the RouteSpec to a factory method which receives the dynamic Path parameters and returns the Service. Other parameters can be retrieved directly in a typesafe manner from the HTTP request by using <code>&lt;--()</code> or <code>from()</code> method on the parameter declaration.
-Note that the validity of ALL parameters which are attached to a RouteSpec is verified by Fintrospect before requests make it to these bound Services, so you do not need to worry about implementing any validation at this point.</p>
-<pre><code>val holidays = Query.required.*.localDate(&quot;datesTakenAsHoliday&quot;)
+<!DOCTYPE html><html><head><meta charset="utf8"/><title>fintrospect</title><link rel="icon" type="image/png" href="images/eye-32px.png"/><link rel="stylesheet" href="css/global.css"/><link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans|Source+Code+Pro"/><script src="js/jquery/jquery.min.js"></script><script src="js/bootstrap/bootstrap.js"></script></head><body><header><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button data-toggle="collapse" data-target="#navbar-top-collapse-1" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">fintrospect</a></div><div id="navbar-top-collapse-1" class="collapse navbar-collapse"><ul class="nav navbar-nav navbar-right"><li><a href="https://travis-ci.org/daviddenton/fintrospect"><img src="https://travis-ci.org/daviddenton/fintrospect.svg?branch=master"/></a></li><li><a href="https://coveralls.io/github/daviddenton/fintrospect?branch=master"><img src="https://coveralls.io/repos/daviddenton/fintrospect/badge.svg?branch=master"/></a></li><li><a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg"/></a></li><li><a href="http://github.com/daviddenton/fintrospect"><img src="images/GitHub-Mark-32px.png"/></a></li></ul></div></div></nav></header><main><div class="container"><div class="row"><div class="col-sm-3"><div class="logo"><img src="images/eye.png"/></div><ul class="nav nav-pills nav-stacked nav-docs"><li><h1>guide</h1></li><li><a href=".">overview</a></li><li><a href="installation">installation</a></li><li><a href="request-parameters-and-bodies">request parameters & bodies</a></li><li><a href="defining-routes">defining routes</a></li><li class="active"><a href="server-routes">server routes</a></li><li><a href="client-routes">client routes</a></li><li><a href="building-http-responses">building http responses</a></li><li><a href="templating-and-static-content">templating and static content</a></li><li><h1>misc</h1></li><li><a href="changelog">changelog & migration</a></li></ul></div><div class="col-sm-9"><article class="article-docs"><h1>server routes &amp; modules</h1><p>A RouteSpec needs to be bound to a standard Finagle Service to receive requests. Since these are very lightweight, we can create a new 
+instance of the Service for every request, and bind the RouteSpec to a factory method which receives the dynamic <code>Path</code> parameters 
+and returns the Service. Other parameters can be retrieved directly in a type-safe manner from the HTTP request by using <code>&lt;--()</code> or 
+<code>from()</code> method on the parameter declaration.</p>
+<h4>validation</h4><p>The presence validity of ALL parameters which are attached to a <code>RouteSpec</code> is verified by Fintrospect before requests make it to 
+this bound <code>Service</code>, so no validation code is required. The response returned to the client is:</p>
+<ul>
+<li>if there are any <code>Path</code> params which are missing or invalid (all are required): <code>Not Found 404</code></li>
+<li>if there are any <code>Header</code>, <code>Query</code>, or <code>Body</code> params are missing (required only) or invalid: <code>Bad Request 400</code></li>
+</ul>
+<h3>Simple example</h3><pre><code>val holidays = Query.required.*.localDate(&quot;datesTakenAsHoliday&quot;)
 val includeManagement = Header.optional.boolean(&quot;includeManagement&quot;)
 
 def findEmployeesOnHoliday(departmentId: Integer) = Service.mk[Request, Response] {
-request =&gt;
-val holidayDates: Seq[LocalDate] = holidays &lt;-- request
-val includeManagementFlag: Option[Boolean] = includeManagement &lt;-- request
-val response = Response(Ok)
-val baseMsg = s&quot;Everyone from department $departmentId was at work on $holidayDates&quot;
-response.contentString = baseMsg + (if (includeManagementFlag.getOrElse(false)) &quot;&quot; else &quot;, even the management&quot;)
-  Future.value(response)
+    request =&gt;
+        val holidayDates: Seq[LocalDate] = holidays &lt;-- request
+        val includeManagementFlag: Option[Boolean] = includeManagement &lt;-- request
+        val response = Response(Ok)
+        val baseMsg = s&quot;Everyone from department $departmentId was at work on $holidayDates&quot;
+        response.contentString = baseMsg + (if (includeManagementFlag.getOrElse(false)) &quot;&quot; else &quot;, even the management&quot;) Future.value(response)
 }
 
-RouteSpec().taking(holidays).taking(includeManagement).at(Method.Get) / &quot;employee&quot; / Path.integer(&quot;departmentId&quot;) bindTo findEmployeesOnHoliday
-</code></pre><h3>modules</h3><p>A Module is a collection of Routes that share a common root URL context. Add the routes and then convert into a standard Finagle Service object which is then attached in the normal way to an HTTP server.</p>
+RouteSpec()
+    .taking(holidays)
+    .taking(includeManagement)
+    .at(Method.Get) / &quot;employee&quot; / Path.integer(&quot;departmentId&quot;) bindTo findEmployeesOnHoliday
+</code></pre><h3>modules</h3><p>A Module is a collection of Routes that share a common URL context, which is built up from the <code>Root</code> object. Add the routes and 
+then convert into a standard Finagle Service object which is then attached in the normal way to an HTTP server.</p>
 <pre><code>def listEmployees(): Service[Request, Response] = Service.mk(req =&gt; Future.value(Response()))
 
 Http.serve(&quot;:8080&quot;,
@@ -24,8 +35,14 @@ Http.serve(&quot;:8080&quot;,
 )
 </code></pre><p>Modules with different root contexts can also be combined with one another and then converted to a Service:</p>
 <pre><code>Module.toService(ModuleSpec(Root / &quot;a&quot;).combine(ModuleSpec(Root / &quot;b&quot;)))
-</code></pre><h4>self-describing Module APIs</h4><p>A big feature of the Fintrospect library is the ability to generate API documentation at runtime. This can be activated by passing in a ModuleRenderer implementation when creating the ModuleSpec and when this is done, a new endpoint is created at the root of the module context (overridable) which serves this documentation. Bundled with Fintrospect are Swagger (1.1 and 2.0) JSON and a simple JSON format. Other implementations are pluggable by implementing a Trait - see the example code for a simple XML implementation.</p>
+</code></pre><h4>self-describing Module APIs</h4><p>A big feature of the Fintrospect library is the ability to generate API documentation at runtime. This can be activated by passing 
+in a ModuleRenderer implementation when creating the ModuleSpec and when this is done, a new endpoint is created at the root of the 
+module context (overridable) which serves this documentation. Bundled with Fintrospect are Swagger (1.1 and 2.0) JSON and a simple 
+JSON format. Other implementations are pluggable by implementing the <code>ModuleRenderer</code>  trait - see the example code for a simple 
+XML implementation.</p>
 <pre><code>ModuleSpec(Root / &quot;employee&quot;, Swagger2dot0Json(ApiInfo(&quot;an employee discovery API&quot;, &quot;3.0&quot;)))
-</code></pre><h4>security</h4><p>Module routes can secured by adding an implementation of the Security trait - this essentially provides a filter through which all requests will be passed. An ApiKey implementation is bundled with the library which return an unauthorized HTTP response code when a request does not pass authentication.</p>
+</code></pre><h4>security</h4><p>Module routes can secured by adding an implementation of the <code>Security</code> trait - this essentially provides a filter through which 
+all requests will be passed. An ApiKey implementation is bundled with the library which return an <code>401 Unauthorized</code> HTTP response code 
+when a request does not pass authentication.</p>
 <pre><code>ModuleSpec(Root / &quot;employee&quot;).securedBy(ApiKey(Header.required.string(&quot;api_key&quot;), (key: String) =&gt; Future.value(key == &quot;extremelySecretThing&quot;)))
-</code></pre></article></div></div></div></main><footer>Powered by <a href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a href="http://harpjs.com">Harp</a> by <a href="http://www.jvandemo.com">Jurgen Van de Moere</a><script>$(function () { $('[data-toggle="tooltip"]').tooltip() })</script></footer></body></html>
+</code></pre></article></div></div></div></main><footer><span class="left">project maintained by <a href="https://github.com/daviddenton">daviddenton</a></span><span class="right"> site powered by <a href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a href="http://harpjs.com">Harp</a> by <a href="http://www.jvandemo.com">Jurgen Van de Moere</a></span><script>$(function () { $('[data-toggle="tooltip"]').tooltip() })</script></footer></body></html>
