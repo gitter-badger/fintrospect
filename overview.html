@@ -29,7 +29,7 @@ implement contracts for both server and client-side HTTP services which are:</p>
 endpoint under which it&#39;s own runtime-generated documentation can be served (eg. in Swagger format).</li>
 </ul>
 <p>Note that in order to aid the reader, the code in this guide has omitted imports that would have made the it read more nicely. The sacrifices we make in the name of learning... :)</p>
-<h3>regarding finagle</h3><p>Since Fintrospect is build on top of Finagle, it&#39;s worth acquainting yourself with it&#39;s concepts, which can be found <a href="http://twitter.github.io/finagle/guide" target="_top">here</a>. </p>
+<h3>regarding finagle</h3><p>Since Fintrospect is build on top of Finagle, it&#39;s worth acquainting yourself with it&#39;s concepts, which can be found <a target="_top" href="http://twitter.github.io/finagle/guide" target="_top">here</a>. </p>
 <h4>&tldr; finagle primer:</h4><ol>
 <li>Finagle provides protocol-agnostic RPC and is based on Netty</li>
 <li>It is mainly asynchronous and makes heavy usage of Twitter&#39;s version of Scala Futures</li>
@@ -39,4 +39,4 @@ Filter:   def apply(request : RequestIn, service : Service[RequestOut, ResponseI
 </li>
 <li><code>Filters</code> can be chained together and then applied to a <code>Service</code>, which results in another <code>Service</code>. This is useful to 
 apply layers of functionality such as caching headers, retry behaviour, and timeouts.</li>
-</ol></article></div></div></div></main><footer><span class="left">project maintained by <a href="https://github.com/daviddenton">daviddenton</a></span><span class="right"> site powered by <a href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a href="http://harpjs.com">Harp</a> by <a href="http://www.jvandemo.com">Jurgen Van de Moere</a></span><script>$(function () { $('[data-toggle="tooltip"]').tooltip() })</script></footer></body></html>
+</ol></article></div></div></div></main><footer><span class="left">project maintained by <a target="_top" href="https://github.com/daviddenton">daviddenton</a></span><span class="right"> site powered by <a target="_top" href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a target="_top" href="http://harpjs.com">Harp</a> by <a target="_top" href="http://www.jvandemo.com">Jurgen Van de Moere</a></span><script>$(function () { $('[data-toggle="tooltip"]').tooltip() })</script></footer></body></html>
