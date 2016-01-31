@@ -2,7 +2,7 @@
 services are very lightweight, we can create a new instance of the Service for every request, and bind the RouteSpec to a factory method 
 which receives the dynamic <code>Path</code> parameters and returns the Service. Other parameters can be retrieved directly in a type-safe manner from the HTTP request by using <code>&lt;--()</code> or 
 <code>from()</code> method on the parameter declaration.</p>
-<h4>validation</h4><p>The presence validity of ALL parameters which are attached to a <code>RouteSpec</code> is verified by Fintrospect before requests make it to 
+<h4>validation</h4><p>The presence and format validity of ALL parameters which are attached to a <code>RouteSpec</code> is verified by Fintrospect before requests make it to 
 this bound <code>Service</code>, so no validation code is required. The response returned to the client is:</p>
 <ul>
 <li><code>Not Found 404</code>: if there are any <code>Path</code> params which are missing or invalid (all are required)</li>

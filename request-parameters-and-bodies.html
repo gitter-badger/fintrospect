@@ -6,26 +6,26 @@ interface to which the main functions are:</p>
 </ol>
 <p>Request parameters are created in a uniform way using the standardised objects <code>Path</code>, <code>Header</code>, <code>Query</code>, <code>FormField</code> and <code>Body</code>. 
 The general form for definition is as follows, although since <code>Path</code> and <code>Body</code> parameters are always required, the middle step is omitted: </p>
-<pre><code>    &lt;parameter location class&gt;.&lt;required|optional&gt;.&lt;param type&gt;(&quot;&lt;name&gt;&quot;)
+<pre><code>&lt;parameter location class&gt;.&lt;required|optional&gt;.&lt;param type&gt;(&quot;&lt;name&gt;&quot;)
 </code></pre><p>Descriptions can be attached to these definitions for documentation purposes. Note the type for the optional param:</p>
-<pre><code>    val anniversary = Header.required.localDate(&quot;anniversary&quot;, &quot;the date you should not forget! format: yyyy-mm-dd&quot;)
-    val myAnniversary: LocalDate = age &lt;-- request
+<pre><code>val anniversary = Header.required.localDate(&quot;anniversary&quot;, &quot;the date you should not forget! format: yyyy-mm-dd&quot;)
+val myAnniversary: LocalDate = age &lt;-- request
 
-    val age = Header.optional.int(&quot;age&quot;, &quot;your age&quot;)
-    val age: Option[Integer] = age &lt;-- request
+val age = Header.optional.int(&quot;age&quot;, &quot;your age&quot;)
+val age: Option[Integer] = age &lt;-- request
 
-    val ohDear = Body.xml(&quot;soapMessage&quot;, &quot;This isn&#39;t Simple&quot;)
-    val ohDearDear: Elem = anniversary &lt;-- request
+val ohDear = Body.xml(&quot;soapMessage&quot;, &quot;This isn&#39;t Simple&quot;)
+val ohDearDear: Elem = anniversary &lt;-- request
 </code></pre><p>There are convenience methods for a standard set of &quot;primitive&quot; types, plus extensions for such as native Scala XML, Forms and JSON.</p>
 <p>Additionally, there is another form for parameters which can appear multiple times - simply insert the <code>*()</code> method in the chain:</p>
-<pre><code>    val kidsBirthdays = Query.required.*.localDate(&quot;birthdays&quot;, &quot;the dates you should not forget! format: yyyy-mm-dd&quot;)
-    val ourKidsBirthdays: Seq[LocalDate] = kidsBirthdays &lt;-- request
+<pre><code>val kidsBirthdays = Query.required.*.localDate(&quot;birthdays&quot;, &quot;the dates you should not forget! format: yyyy-mm-dd&quot;)
+val ourKidsBirthdays: Seq[LocalDate] = kidsBirthdays &lt;-- request
 </code></pre><h4>forms</h4><p>These represent a slightly special case you first need to retrieve the form from the request, and then the fields from the form.</p>
-<pre><code>    val name = FormField.required.string(&quot;name&quot;)
-    val isMarried = FormField.optional.boolean(&quot;married&quot;)
-    val form = Body.form(name, isMarried)
-    val myForm = form &lt;-- request
-    val myName = name &lt;-- formInstance
+<pre><code>val name = FormField.required.string(&quot;name&quot;)
+val isMarried = FormField.optional.boolean(&quot;married&quot;)
+val form = Body.form(name, isMarried)
+val myForm = form &lt;-- request
+val myName = name &lt;-- formInstance
     val iAmMarried = isMarried &lt;-- formInstance
 </code></pre><h3>custom formats</h3><p>These can be implemented by defining a <code>ParameterSpec</code> or <code>BodySpec</code> and passing this in instead of calling the <code>&lt;param type&gt;</code> method 
 in the form above. These Spec objects define the serialization and deserialization mechanisms from the String format that comes in on the 

@@ -5,7 +5,7 @@ in a system:</p>
 <pre><code>RouteSpec().at(Method.Get) / &quot;employee&quot;
 </code></pre><p>Notice that the request routing in that example was completely static? If we want an example of a dynamic endpoint, such as listing 
 all users in a particular numerically-identified department, then we can introduce a <code>Path</code> parameter:</p>
-<pre><code>  RouteSpec(&quot;list all employees in a particular group&quot;).at(Method.Get) / &quot;employee&quot; / Path.integer(&quot;departmentId&quot;)
+<pre><code>RouteSpec(&quot;list all employees in a particular group&quot;).at(Method.Get) / &quot;employee&quot; / Path.integer(&quot;departmentId&quot;)
 </code></pre><p>... and we can do the same for Header and Query parameters; both optional and mandatory parameters are supported, as are parameters that can appear multiple times.:</p>
 <pre><code>RouteSpec(&quot;list all employees in a particular group&quot;)
     .taking(Header.optional.boolean(&quot;listOnlyActive&quot;))
