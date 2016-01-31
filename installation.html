@@ -1,7 +1,107 @@
-<!DOCTYPE html><html><head><meta charset="utf8"/><title>fintrospect</title><link rel="icon" type="image/png" href="images/eye-32px.png"/><link rel="stylesheet" href="css/global.css"/><link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans|Source+Code+Pro"/><script src="js/jquery/jquery.min.js"></script><script src="js/bootstrap/bootstrap.js"></script></head><body><header><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button data-toggle="collapse" data-target="#navbar-top-collapse-1" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">fintrospect</a></div><div id="navbar-top-collapse-1" class="collapse navbar-collapse"><ul class="nav navbar-nav navbar-right"><li><a href="https://travis-ci.org/daviddenton/fintrospect"><img src="https://travis-ci.org/daviddenton/fintrospect.svg?branch=master"/></a></li><li><a href="https://coveralls.io/github/daviddenton/fintrospect?branch=master"><img src="https://coveralls.io/repos/daviddenton/fintrospect/badge.svg?branch=master"/></a></li><li><a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg"/></a></li><li><a href="http://github.com/daviddenton/fintrospect"><img src="images/GitHub-Mark-32px.png"/></a></li></ul></div></div></nav></header><main><div class="container"><div class="row"><div class="col-sm-3"><div class="logo"><img src="images/eye.png"/></div><ul class="nav nav-pills nav-stacked nav-docs"><li><a href=".">introduction</a></li><li><h1>guide</h1></li><li><a href="regarding-finagle">regarding finagle</a></li><li class="active"><a href="installation">installation</a></li><li><a href="request-parameters-and-bodies">request parameters & bodies</a></li><li><a href="routes">routes</a></li><li><a href="using-routes">using routes</a></li><li><a href="building-http-responses">building http responses</a></li><li><a href="templating-and-static-content">templating and static content</a></li><li><h1>misc</h1></li><li><a href="changelog">changelog & migration</a></li></ul></div><div class="col-sm-9"><article class="article-docs"><h1>installation</h1><p>Add the following lines to <code>build.sbt</code>. Note that while the library doesn&#39;t depend on a particular version of Finagle,
- it has built against the version below:</p>
-<pre><code class="language-scala">resolvers += &quot;JCenter&quot; at &quot;https://jcenter.bintray.com&quot;
-libraryDependencies += &quot;com.twitter&quot; %% &quot;finagle-http&quot; % &quot;6.31.0&quot;
+<!DOCTYPE html><html><head><meta charset="utf8"/><title>fintrospect</title><link rel="icon" type="image/png" href="images/eye-32px.png"/><link rel="stylesheet" href="css/global.css"/><link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans|Source+Code+Pro"/><script src="js/jquery/jquery.min.js"></script><script src="js/bootstrap/bootstrap.js"></script></head><body><header><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button data-toggle="collapse" data-target="#navbar-top-collapse-1" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">fintrospect</a></div><div id="navbar-top-collapse-1" class="collapse navbar-collapse"><ul class="nav navbar-nav navbar-right"><li><a href="https://travis-ci.org/daviddenton/fintrospect"><img src="https://travis-ci.org/daviddenton/fintrospect.svg?branch=master"/></a></li><li><a href="https://coveralls.io/github/daviddenton/fintrospect?branch=master"><img src="https://coveralls.io/repos/daviddenton/fintrospect/badge.svg?branch=master"/></a></li><li><a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg"/></a></li><li><a href="http://github.com/daviddenton/fintrospect"><img src="images/GitHub-Mark-32px.png"/></a></li></ul></div></div></nav></header><main><div class="container"><div class="row"><div class="col-sm-3"><div class="logo"><img src="images/eye.png"/></div><ul class="nav nav-pills nav-stacked nav-docs"><li><a href=".">overview</a></li><li><h1>guide</h1></li><li><a href="regarding-finagle">regarding finagle</a></li><li class="active"><a href="installation">installation</a></li><li><a href="request-parameters-and-bodies">request parameters & bodies</a></li><li><a href="routes">routes</a></li><li><a href="using-routes">using routes</a></li><li><a href="building-http-responses">building http responses</a></li><li><a href="templating-and-static-content">templating and static content</a></li><li><h1>misc</h1></li><li><a href="changelog">changelog & migration</a></li></ul></div><div class="col-sm-9"><article class="article-docs"><h1>installation</h1><p>Fintropect is intentionally dependency-lite by design - the library itself only has a single dependency. The other requirement is Finagle
+itself - the choice of version is up to the user (although it has built against the version shown). Additionally, to activate the features
+below, additional dependencies may be required - these are shown in the subsequent sections depending on the use-case.</p>
+<h3>core</h3><p>Add the following lines to <code>build.sbt</code>:</p>
+<pre><code class="language-scala">libraryDependencies += &quot;com.twitter&quot; %% &quot;finagle-http&quot; % &quot;6.31.0&quot;
 libraryDependencies += &quot;io.github.daviddenton&quot; %% &quot;fintrospect&quot; % &quot;12.0.2&quot;
 </code></pre>
-<p>Additionally, to activate any message formats other than Argo JSON and native XML you&#39;ll need to import the relevant libraries (e.g. Json4S native/jackson), since only the bindings are included in the Fintrospect JAR.</p></article></div></div></div></main><footer>Powered by <a href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a href="http://harpjs.com">Harp</a> by <a href="http://www.jvandemo.com">Jurgen Van de Moere</a></footer></body></html>
+<h3>message formats</h3><p>For consuming request parameters in a type-safe way, or using the relevant HTTP response builders:</p><table class="code table table-bordered">
+<tr>
+    <td>Library</td>
+    <td>Content-Type</td>
+    <td>Additional SBT deps</td>
+    <td>Builder <code>Object</code></td>
+</tr>
+<tr>
+    <td>Argo</td>
+    <td>application/json</td>
+    <td>&quot;net.sourceforge.argo&quot; % &quot;argo&quot; % &quot;3.12&quot;</td>
+    <td>Argo</td>
+</tr>
+<tr>
+    <td>Argonaut</td>
+    <td>application/json</td>
+    <td>&quot;io.argonaut&quot; %% &quot;argonaut&quot; % &quot;6.0.4&quot;</td>
+    <td>Argonaut</td>
+</tr>
+<tr>
+    <td>Circe</td>
+    <td>application/json</td>
+    <td>&quot;io.circe&quot; %% &quot;circe-core&quot; % &quot;0.2.1&quot;<br>&quot;io.circe&quot; %% &quot;circe-parse&quot; % &quot;0.2.1&quot;<br>&quot;io.circe&quot; %% &quot;circe-generic&quot; % &quot;0.2.1&quot; </td>
+    <td>Circe</td>
+</tr>
+<tr>
+    <td>GSON</td>
+    <td>application/json</td>
+    <td>&quot;com.google.code.gson&quot; % &quot;gson&quot; % &quot;2.5&quot;</td>
+    <td>Gson</td>
+</tr>
+<tr>
+    <td>HTML</td>
+    <td>text/html</td>
+    <td>-</td>
+    <td>Html</td>
+</tr>
+<tr>
+    <td>Json4S Native</td>
+    <td>application/json</td>
+    <td>&quot;org.json4s&quot; %% &quot;json4s-native&quot; % &quot;3.3.0&quot;</td>
+    <td>Json4s.Native<br>Json4s.NativeDoubleMode</td>
+</tr>
+<tr>
+    <td>Json4S Jackson</td>
+    <td>application/json</td>
+    <td>&quot;org.json4s&quot; %% &quot;json4s-jackson&quot; % &quot;3.3.0&quot;</td>
+    <td>Json4s.Jackson<br>Json4s.JacksonDoubleMode</td>
+</tr>
+<tr>
+    <td>Plain Text</td>
+    <td>text/plain</td>
+    <td>-</td>
+    <td>PlainText</td>
+</tr>
+<tr>
+    <td>Play</td>
+    <td>application/json</td>
+    <td>&quot;com.typesafe.play&quot; %% &quot;play-json&quot; % &quot;2.4.3&quot;</td>
+    <td>Play</td>
+</tr>
+<tr>
+    <td>Spray</td>
+    <td>application/json</td>
+    <td>&quot;io.spray&quot; %% &quot;spray-json&quot; % &quot;1.3.2&quot;</td>
+    <td>Spray</td>
+</tr>
+<tr>
+    <td>XHTML</td>
+    <td>application/xhtml+xml</td>
+    <td>-</td>
+    <td>XHtml</td>
+</tr>
+<tr>
+    <td>XML</td>
+    <td>application/xml</td>
+    <td>-</td>
+    <td>Xml</td>
+</tr>
+</table>
+<h3>templating</h3><p>For utilising the templating engines listed below:</p><table class="code table table-bordered">
+<tr>
+  <td>Templating Library</td>
+  <td>Template filename suffix</td>
+  <td>Additional SBT deps</td>
+  <td>Filter class</td>
+</tr>
+<tr>
+  <td>Handlebars</td>
+  <td>.hbs</td>
+  <td>&quot;com.gilt&quot; %% &quot;handlebars-scala&quot; % &quot;2.0.1&quot;</td>
+  <td>RenderHandlebarsView</td>
+</tr>
+<tr>
+  <td>Mustache (v2.11 only)</td>
+  <td>.mustache</td>
+  <td>&quot;com.github.spullara.mustache.java&quot; % &quot;compiler&quot; % &quot;0.9.1&quot;<br>&quot;com.github.spullara.mustache.java&quot; % &quot;scala-extensions-2.11&quot; % &quot;0.9.1&quot;</td>
+  <td>RenderMustacheView</td>
+</tr>
+</table></article></div></div></div></main><footer>Powered by <a href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a href="http://harpjs.com">Harp</a> by <a href="http://www.jvandemo.com">Jurgen Van de Moere</a></footer></body></html>

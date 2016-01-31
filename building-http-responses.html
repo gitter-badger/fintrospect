@@ -1,94 +1,94 @@
-<!DOCTYPE html><html><head><meta charset="utf8"/><title>fintrospect</title><link rel="icon" type="image/png" href="images/eye-32px.png"/><link rel="stylesheet" href="css/global.css"/><link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans|Source+Code+Pro"/><script src="js/jquery/jquery.min.js"></script><script src="js/bootstrap/bootstrap.js"></script></head><body><header><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button data-toggle="collapse" data-target="#navbar-top-collapse-1" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">fintrospect</a></div><div id="navbar-top-collapse-1" class="collapse navbar-collapse"><ul class="nav navbar-nav navbar-right"><li><a href="https://travis-ci.org/daviddenton/fintrospect"><img src="https://travis-ci.org/daviddenton/fintrospect.svg?branch=master"/></a></li><li><a href="https://coveralls.io/github/daviddenton/fintrospect?branch=master"><img src="https://coveralls.io/repos/daviddenton/fintrospect/badge.svg?branch=master"/></a></li><li><a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg"/></a></li><li><a href="http://github.com/daviddenton/fintrospect"><img src="images/GitHub-Mark-32px.png"/></a></li></ul></div></div></nav></header><main><div class="container"><div class="row"><div class="col-sm-3"><div class="logo"><img src="images/eye.png"/></div><ul class="nav nav-pills nav-stacked nav-docs"><li><a href=".">introduction</a></li><li><h1>guide</h1></li><li><a href="regarding-finagle">regarding finagle</a></li><li><a href="installation">installation</a></li><li><a href="request-parameters-and-bodies">request parameters & bodies</a></li><li><a href="routes">routes</a></li><li><a href="using-routes">using routes</a></li><li class="active"><a href="building-http-responses">building http responses</a></li><li><a href="templating-and-static-content">templating and static content</a></li><li><h1>misc</h1></li><li><a href="changelog">changelog & migration</a></li></ul></div><div class="col-sm-9"><article class="article-docs"><h1>building http responses</h1><p>It&#39;s all very well being able to extract pieces of data from HTTP requests, but that&#39;s only half the story - we also want to be able to easily build responses. Fintrospect comes bundled with a extensible set of HTTP Response Builders to do this. The very simplest way is by using a ResponseBuilder object directly...</p>
+<!DOCTYPE html><html><head><meta charset="utf8"/><title>fintrospect</title><link rel="icon" type="image/png" href="images/eye-32px.png"/><link rel="stylesheet" href="css/global.css"/><link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans|Source+Code+Pro"/><script src="js/jquery/jquery.min.js"></script><script src="js/bootstrap/bootstrap.js"></script></head><body><header><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button data-toggle="collapse" data-target="#navbar-top-collapse-1" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="/" class="navbar-brand">fintrospect</a></div><div id="navbar-top-collapse-1" class="collapse navbar-collapse"><ul class="nav navbar-nav navbar-right"><li><a href="https://travis-ci.org/daviddenton/fintrospect"><img src="https://travis-ci.org/daviddenton/fintrospect.svg?branch=master"/></a></li><li><a href="https://coveralls.io/github/daviddenton/fintrospect?branch=master"><img src="https://coveralls.io/repos/daviddenton/fintrospect/badge.svg?branch=master"/></a></li><li><a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg"/></a></li><li><a href="http://github.com/daviddenton/fintrospect"><img src="images/GitHub-Mark-32px.png"/></a></li></ul></div></div></nav></header><main><div class="container"><div class="row"><div class="col-sm-3"><div class="logo"><img src="images/eye.png"/></div><ul class="nav nav-pills nav-stacked nav-docs"><li><a href=".">overview</a></li><li><h1>guide</h1></li><li><a href="regarding-finagle">regarding finagle</a></li><li><a href="installation">installation</a></li><li><a href="request-parameters-and-bodies">request parameters & bodies</a></li><li><a href="routes">routes</a></li><li><a href="using-routes">using routes</a></li><li class="active"><a href="building-http-responses">building http responses</a></li><li><a href="templating-and-static-content">templating and static content</a></li><li><h1>misc</h1></li><li><a href="changelog">changelog & migration</a></li></ul></div><div class="col-sm-9"><article class="article-docs"><h1>building http responses</h1><p>It&#39;s all very well being able to extract pieces of data from HTTP requests, but that&#39;s only half the story - we also want to be able to easily build responses. Fintrospect comes bundled with a extensible set of HTTP Response Builders to do this. The very simplest way is by using a ResponseBuilder object directly...</p>
 <pre><code>ResponseBuilder.toFuture(
     ResponseBuilder.HttpResponse(ContentTypes.APPLICATION_JSON).withCode(Ok).withContent(&quot;some text&quot;).build()
 )
-</code></pre><p>However, this only handles Strings and Buffer types directly. Also bundled are a set of bindings which provide ResponseBuilders for handling content types like JSON or XML in a set of popular OSS libraries. These live in the <code>io.fintrospect.formats</code> package. Currently supported formats are in the table below:</p>
+</code></pre><p>However, this only handles Strings and Buffer types directly. Also bundled are a set of bindings which provide ResponseBuilders for 
+handling content types like JSON or XML in a set of popular OSS libraries. These live in the <code>io.fintrospect.formats</code> package. Currently supported formats are in the table below:</p>
 <table class="code table table-bordered">
 <tr>
     <td>Library</td>
     <td>Content-Type</td>
     <td>Additional SBT deps</td>
-    <td>Fintrospect class</td>
+    <td>Builder <code>Object</code></td>
 </tr>
 <tr>
     <td>Argo</td>
     <td>application/json</td>
     <td>&quot;net.sourceforge.argo&quot; % &quot;argo&quot; % &quot;3.12&quot;</td>
-    <td>io.fintrospect.formats.json.Argo</td>
+    <td>Argo</td>
 </tr>
 <tr>
     <td>Argonaut</td>
     <td>application/json</td>
     <td>&quot;io.argonaut&quot; %% &quot;argonaut&quot; % &quot;6.0.4&quot;</td>
-    <td>io.fintrospect.formats.json.Argonaut</td>
+    <td>Argonaut</td>
 </tr>
 <tr>
     <td>Circe</td>
     <td>application/json</td>
     <td>&quot;io.circe&quot; %% &quot;circe-core&quot; % &quot;0.2.1&quot;<br>&quot;io.circe&quot; %% &quot;circe-parse&quot; % &quot;0.2.1&quot;<br>&quot;io.circe&quot; %% &quot;circe-generic&quot; % &quot;0.2.1&quot; </td>
-    <td>io.fintrospect.formats.json.Circe</td>
+    <td>Circe</td>
 </tr>
 <tr>
     <td>GSON</td>
     <td>application/json</td>
     <td>&quot;com.google.code.gson&quot; % &quot;gson&quot; % &quot;2.5&quot;</td>
-    <td>io.fintrospect.formats.json.Gson</td>
+    <td>Gson</td>
 </tr>
 <tr>
     <td>HTML</td>
     <td>text/html</td>
     <td>-</td>
-    <td>io.fintrospect.formats.Html</td>
+    <td>Html</td>
 </tr>
 <tr>
     <td>Json4S Native</td>
     <td>application/json</td>
     <td>&quot;org.json4s&quot; %% &quot;json4s-native&quot; % &quot;3.3.0&quot;</td>
-    <td>io.fintrospect.formats.json.Json.Native<br>io.fintrospect.formats.json.Json.NativeDoubleMode</td>
+    <td>Json4s.Native<br>Json4s.NativeDoubleMode</td>
 </tr>
 <tr>
     <td>Json4S Jackson</td>
     <td>application/json</td>
     <td>&quot;org.json4s&quot; %% &quot;json4s-jackson&quot; % &quot;3.3.0&quot;</td>
-    <td>io.fintrospect.formats.json.Json.Jackson<br>io.fintrospect.formats.json.Json.JacksonDoubleMode</td>
+    <td>Json4s.Jackson<br>Json4s.JacksonDoubleMode</td>
 </tr>
 <tr>
     <td>Plain Text</td>
     <td>text/plain</td>
     <td>-</td>
-    <td>io.fintrospect.formats.PlainText</td>
+    <td>PlainText</td>
 </tr>
 <tr>
     <td>Play</td>
     <td>application/json</td>
     <td>&quot;com.typesafe.play&quot; %% &quot;play-json&quot; % &quot;2.4.3&quot;</td>
-    <td>io.fintrospect.formats.json.Play</td>
+    <td>Play</td>
 </tr>
 <tr>
     <td>Spray</td>
     <td>application/json</td>
     <td>&quot;io.spray&quot; %% &quot;spray-json&quot; % &quot;1.3.2&quot;</td>
-    <td>io.fintrospect.formats.json.Spray</td>
+    <td>Spray</td>
 </tr>
 <tr>
     <td>XHTML</td>
     <td>application/xhtml+xml</td>
     <td>-</td>
-    <td>io.fintrospect.formats.XHtml</td>
+    <td>XHtml</td>
 </tr>
 <tr>
     <td>XML</td>
     <td>application/xml</td>
     <td>-</td>
-    <td>io.fintrospect.formats.Xml</td>
+    <td>Xml</td>
 </tr>
 </table>
-
 <p>Note that to avoid dependency bloat, Fintrospect only ships with the above JSON library bindings - you&#39;ll need to bring in the library of your choice as an additional dependency.</p>
 <p>The simplest (least concise) way to invoke an auto-marshalling (ie. typesafe) ResponseBuilder is along the lines of:</p>
 <pre><code>val responseNoImplicits: Future[Response] = ResponseBuilder.toFuture(
-    Xml.ResponseBuilder.HttpResponse(Ok).withContent(&lt;xml&gt;lashings and lashings of wonderful&lt;/xml&gt;)
-  )
+Xml.ResponseBuilder.HttpResponse(Ok).withContent(&lt;xml&gt;lashings and lashings of wonderful&lt;/xml&gt;)
+)
 </code></pre><p>... although with tiny bit of implicit magic (boo-hiss!), you can reduce this to the rather more concise:</p>
 <pre><code>import Xml.ResponseBuilder._
 val responseViaImplicits: Future[Response] = Ok(&lt;xml&gt;lashings and lashings of wonderful&lt;/xml&gt;)
