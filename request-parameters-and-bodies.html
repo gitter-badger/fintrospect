@@ -40,4 +40,4 @@ val birthdayAsAQueryParam = Query.required(ParameterSpec[Birthday](&quot;DOB&quo
 val birthdayAsABody = Body(BodySpec[Birthday](Option(&quot;DOB&quot;), ContentTypes.TEXT_PLAIN, Birthday.from, _.toString))
 </code></pre><p>Note that in the above we are only concerned with the happy case on-the-wire values. The serialize and deserialize methods should 
 throw exceptions if unsuccessful - these are caught by the request validation mechanism and turned into a rejected <code>BadRequest</code> (400) 
-response which is returned to the caller.</p></article></div></div></div></main><footer>Powered by <a href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a href="http://harpjs.com">Harp</a> by <a href="http://www.jvandemo.com">Jurgen Van de Moere</a></footer></body></html>
+response which is returned to the caller.</p></article></div></div></div></main><footer>Powered by <a href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a href="http://harpjs.com">Harp</a> by <a href="http://www.jvandemo.com">Jurgen Van de Moere</a><script>$(function () { $('[data-toggle="tooltip"]').tooltip() })</script></footer></body></html>
