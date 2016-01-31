@@ -4,7 +4,9 @@ returns a Twitter <code>Future</code> containing the response. Any required mani
 headers) can be done in the standard way by chaining a <code>Filter</code> to the Finagle HTTP client:</p>
 <pre><code>val employeeId = Path.integer(&quot;employeeId&quot;)
 val name = Query.required.string(&quot;name&quot;)
-val client: RouteClient = RouteSpec().taking(name).at(Get) / &quot;employee&quot; / employeeId bindToClient Http.newService(&quot;localhost:10000&quot;)
+val client: RouteClient = RouteSpec()
+                            .taking(name)
+                            .at(Get) / &quot;employee&quot; / employeeId bindToClient Http.newService(&quot;localhost:10000&quot;)
 val response: Future[Response] = client(employeeId --&gt; 1, name --&gt; &quot;&quot;)
 </code></pre><h3>super-cool feature time: reuse of HTTP contracts</h3><p>Because the <code>RouteSpec</code> objects can be used to bind to either a Server OR a Client, we can be spectacularly smug and use them on 
 BOTH sides of an HTTP boundary to provide a type-safe remote contract, to either:</p>
