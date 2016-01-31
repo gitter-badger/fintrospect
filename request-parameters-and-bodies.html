@@ -26,7 +26,7 @@ val isMarried = FormField.optional.boolean(&quot;married&quot;)
 val form = Body.form(name, isMarried)
 val myForm = form &lt;-- request
 val myName = name &lt;-- formInstance
-    val iAmMarried = isMarried &lt;-- formInstance
+val iAmMarried = isMarried &lt;-- formInstance
 </code></pre><h3>custom formats</h3><p>These can be implemented by defining a <code>ParameterSpec</code> or <code>BodySpec</code> and passing this in instead of calling the <code>&lt;param type&gt;</code> method 
 in the form above. These Spec objects define the serialization and deserialization mechanisms from the String format that comes in on the 
 request. An example for a simple domain case class Birthday:</p>
