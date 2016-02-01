@@ -1,13 +1,13 @@
 <!DOCTYPE html><html><head><meta charset="utf8"/><title>fintrospect</title><link rel="icon" type="image/png" href="images/eye-32px.png"/><link rel="stylesheet" href="css/global.css"/><link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans|Source+Code+Pro"/><script src="js/jquery/jquery.min.js"></script><script src="js/bootstrap/bootstrap.js"></script></head><body><header><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button data-toggle="collapse" data-target="#navbar-top-collapse-1" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="." class="navbar-brand">fintrospect</a></div><div id="navbar-top-collapse-1" class="collapse navbar-collapse"><ul class="nav navbar-nav navbar-right"><li><a href="https://travis-ci.org/daviddenton/fintrospect" target="_top"><img src="https://travis-ci.org/daviddenton/fintrospect.svg?branch=master"/></a></li><li><a href="https://coveralls.io/github/daviddenton/fintrospect?branch=master" target="_top"><img src="https://coveralls.io/repos/daviddenton/fintrospect/badge.svg?branch=master"/></a></li><li><a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion" target="_top"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg"/></a></li><li><a href="http://github.com/daviddenton/fintrospect" target="_top"><img src="images/GitHub-Mark-32px.png"/></a></li></ul></div></div></nav></header><main><div class="container"><div class="row"><div class="col-sm-3"><div class="logo"><img src="images/eye.png" class="logo"/></div><ul class="nav nav-pills nav-stacked nav-docs"><li><h1>guide</h1></li><li><a href=".">overview</a></li><li><a href="installation">installation</a></li><li class="active"><a href="request-parameters-and-bodies">request parameters & bodies</a></li><li><a href="defining-routes">defining routes</a></li><li><a href="server-routes">server routes</a></li><li><a href="client-routes">client routes</a></li><li><a href="building-http-responses">building http responses</a></li><li><a href="templating-and-static-content">templating and static content</a></li><li><a href="testing">testing</a></li><li><h1>misc</h1></li><li><a href="changelog">changelog & migration</a></li></ul></div><div class="col-sm-9"><article class="article-docs"><h1>request parameters and bodies</h1><p>Fintrospect broadly abstracts the various parts of an HTTP Request <code>Path</code>, <code>Header</code>, <code>Query</code> and <code>Body</code> behind a common 
 interface to which the main functions are:</p>
 <ol>
-<li>Retrieve a specified value from an incoming request in a typesafe way (using <code>&lt;--()</code> or <code>from()</code>)</li>
-<li>Bind a specified value into an outgoing request in a typesafe way (using <code>--&gt;()</code> or <code>of()</code>)</li>
+<li>Retrieve a specified value from an incoming request in a typesafe way using <code>&lt;--()</code> or <code>from()</code></li>
+<li>Bind a specified value into an outgoing request in a typesafe way using <code>--&gt;()</code> or <code>of()</code></li>
 </ol>
-<p>Request parameters are created in a uniform way using the standardised objects <code>Path</code>, <code>Header</code>, <code>Query</code>, <code>FormField</code> and <code>Body</code>. 
+<p>Parameters are created in a uniform way using the objects <code>Path</code>, <code>Header</code>, <code>Query</code>, <code>FormField</code> and <code>Body</code>. 
 The general form for definition is as follows, although since <code>Path</code> and <code>Body</code> parameters are always required, the middle step is omitted: </p>
 <pre><code>&lt;parameter location class&gt;.&lt;required|optional&gt;.&lt;param type&gt;(&quot;&lt;name&gt;&quot;)
-</code></pre><p>Descriptions can be attached to these definitions for documentation purposes. Note the type for the optional param:</p>
+</code></pre><p>Descriptions can be attached to these definitions for documentation purposes. Note the retrieved type for the optional param:</p>
 <pre><code>val anniversary = Header.required.localDate(&quot;anniversary&quot;, &quot;the date you should not forget! format: yyyy-mm-dd&quot;)
 val myAnniversary: LocalDate = age &lt;-- request
 
@@ -17,7 +17,7 @@ val age: Option[Integer] = age &lt;-- request
 val ohDear = Body.xml(&quot;soapMessage&quot;, &quot;This isn&#39;t Simple&quot;)
 val ohDearDear: Elem = anniversary &lt;-- request
 </code></pre><p>There are convenience methods for a standard set of &quot;primitive&quot; types, plus extensions for such as native Scala XML, Forms and JSON.</p>
-<p>Additionally, there is another form for parameters which can appear multiple times - simply insert the <code>*()</code> method in the chain:</p>
+<p>Additionally, there is another form for parameters which can appear multiple times in a request - simply insert the <code>*()</code> method in the chain:</p>
 <pre><code>val kidsBirthdays = Query.required.*.localDate(&quot;birthdays&quot;, &quot;the dates you should not forget! format: yyyy-mm-dd&quot;)
 val ourKidsBirthdays: Seq[LocalDate] = kidsBirthdays &lt;-- request
 </code></pre><h4>forms</h4><p>These represent a slightly special case you first need to retrieve the form from the request, and then the fields from the form.</p>
@@ -27,9 +27,27 @@ val form = Body.form(name, isMarried)
 val myForm = form &lt;-- request
 val myName = name &lt;-- formInstance
 val iAmMarried = isMarried &lt;-- formInstance
-</code></pre><h3>custom formats</h3><p>These can be implemented by defining a <code>ParameterSpec</code> or <code>BodySpec</code> and passing this in instead of calling the <code>&lt;param type&gt;</code> method 
-in the form above. These Spec objects define the serialization and deserialization mechanisms from the String format that comes in on the 
-request. An example for a simple domain case class Birthday:</p>
+</code></pre><h4>usage of JSON libraries</h4><p>Fintrospect comes with binding support for several JSON libraries, each represented by static instances of <code>JsonFormat</code> on a class named 
+after the library in question. When defining a <code>Body</code> or <code>Parameter</code>, if required you can also specify the library format for it to 
+use (else it will default to the bundled Argo JSON library) - and if this is done centrally then you can switch out JSON libraries with only 
+a single line of code change.</p>
+<pre><code>val json = Argonaut.JsonFormat
+val exampleObject = jsonFormat.obj(&quot;fieldName&quot; -&gt; json.string(&quot;hello&quot;))
+val json = Body.json(Option(&quot;my lovely JSON object&quot;), exampleObject, json)
+val body: Json = json &lt;-- Request()
+</code></pre><p>Notice that in the above we specified an example of the JSON message. This is not mandatory, but allows the generation of 
+<a href="http://json-schema.org/" target="_top">JSON Schema</a> to be included in the auto-generated API documentation.</p>
+<h3>custom object serialisation</h3><p>These can be implemented by defining a <code>ParameterSpec</code> or <code>BodySpec</code> and passing an instance instead of calling the <code>&lt;param type&gt;</code> method 
+in the form above. These Spec objects define:</p>
+<ul>
+<li>name and description of the entity type being handled</li>
+<li>the higher level <code>ParamType</code> of the on-the-wire representation. For custom formats, this is <code>StringParamType</code>, although <code>ObjectParamType</code>
+should be used for JSON appearing in an request body</li>
+<li>functions representing the serialization and deserialization from the String format that comes in on the request. Note that we are only concerned 
+with the happy case on-the-wire values. These throw exceptions if unsuccessful - these are caught by the request validation mechanism and turned into 
+a rejected <code>BadRequest</code> (400) response which is returned to the caller.</li>
+</ul>
+<p>An example for a simple domain case class Birthday:</p>
 <pre><code>case class Birthday(value: LocalDate) {
    override def toString = value.toString
 }
@@ -41,6 +59,4 @@ object Birthday {
 val birthdayAsAQueryParam = Query.required(ParameterSpec[Birthday](&quot;DOB&quot;, None, StringParamType, Birthday.from, _.toString))
 
 val birthdayAsABody = Body(BodySpec[Birthday](Option(&quot;DOB&quot;), ContentTypes.TEXT_PLAIN, Birthday.from, _.toString))
-</code></pre><p>Note that in the above we are only concerned with the happy case on-the-wire values. The serialize and deserialize methods should 
-throw exceptions if unsuccessful - these are caught by the request validation mechanism and turned into a rejected <code>BadRequest</code> (400) 
-response which is returned to the caller.</p></article></div></div></div></main><footer><span class="left">project maintained by <a target="_top" href="https://github.com/daviddenton">daviddenton</a></span><span class="right"> site powered by <a target="_top" href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a target="_top" href="http://harpjs.com">Harp</a> by <a target="_top" href="http://www.jvandemo.com">Jurgen Van de Moere</a></span><script>$(function () { $('[data-toggle="tooltip"]').tooltip() })</script></footer></body></html>
+</code></pre></article></div></div></div></main><footer><span class="left">project maintained by <a target="_top" href="https://github.com/daviddenton">daviddenton</a></span><span class="right"> site powered by <a target="_top" href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a target="_top" href="http://harpjs.com">Harp</a> by <a target="_top" href="http://www.jvandemo.com">Jurgen Van de Moere</a></span><script>$(function () { $('[data-toggle="tooltip"]').tooltip() })</script></footer></body></html>

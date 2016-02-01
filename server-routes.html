@@ -38,12 +38,12 @@ Http.serve(&quot;:8080&quot;,
 <pre><code>Module.toService(ModuleSpec(Root / &quot;a&quot;).combine(ModuleSpec(Root / &quot;b&quot;)))
 </code></pre><h4>self-describing Module APIs</h4><p>A big feature of the Fintrospect library is the ability to generate API documentation at runtime. This can be activated by passing 
 in a ModuleRenderer implementation when creating the ModuleSpec and when this is done, a new endpoint is created at the root of the 
-module context (overridable) which serves this documentation. </p>
+module context (this location is overridable) which serves this documentation. </p>
 <p>Bundled with Fintrospect are:</p>
 <ul>
-<li>Swagger (1.1 and 2.0) JSON</li>
+<li>Swagger (1.1 and 2.0) JSON, including <a href="http://json-schema.org/" target="_top">JSON Schema</a> models</li>
 <li>A simple JSON format</li>
-<li>Sitemap XML format module</li>
+<li>Sitemap XML format</li>
 </ul>
 <p>Other implementations are pluggable by implementing the <code>ModuleRenderer</code>  trait - see the example code for a simple XML implementation.</p>
 <pre><code>ModuleSpec(Root / &quot;employee&quot;, Swagger2dot0Json(ApiInfo(&quot;an employee discovery API&quot;, &quot;3.0&quot;)))

@@ -4,7 +4,8 @@ implement contracts for both server and client-side HTTP services which are:</p>
 <ul>
 <li><code>Type-safe</code> : auto-marshalls all request parameters/bodies into the correct types (including primitives + JSON/XML etc...)</li>
 <li><code>Auto-validating</code> : the presence of required and optional request parameters and bodies are checked before entering service-layer code</li>
-<li><code>Auto-documenting</code> : runtime generation of endpoint documentation such as <a href="http://swagger.io/" target="_top">Swagger</a> JSON or web sitemap XML</li>
+<li><code>Auto-documenting</code> : runtime generation of endpoint documentation such as <a href="http://swagger.io/" target="_top">Swagger</a> JSON or web sitemap XML. 
+Generates <a href="http://json-schema.org/" target="_top">JSON Schema</a> for example object formats to be included in these API docs.</li>
 <li><code>Uniform</code> : reuse the same contract to define both incoming or outgoing Finagle HTTP services. This also allows extremely low effort fake servers to be created</li>
 </ul>
 <p>Additionally, Fintrospect provides a number of mechanisms to leverage these routes:</p>
@@ -30,7 +31,7 @@ endpoint under which it&#39;s own runtime-generated documentation can be served 
 </ul>
 <p>Note that in order to aid the reader, the code in this guide has omitted imports that would have made the it read more nicely. The sacrifices we make in the name of learning... :)</p>
 <h3>regarding finagle</h3><p>Since Fintrospect is build on top of Finagle, it&#39;s worth acquainting yourself with it&#39;s concepts, which can be found <a target="_top" href="http://twitter.github.io/finagle/guide" target="_top">here</a>. </p>
-<h4>&tldr; finagle primer:</h4><ol>
+<h4>&tldr; finagle primer</h4><ol>
 <li>Finagle provides protocol-agnostic RPC and is based on Netty</li>
 <li>It is mainly asynchronous and makes heavy usage of Twitter&#39;s version of Scala Futures</li>
 <li>It defines uniform <code>Service</code> and <code>Filter</code> interfaces for both client and server APIs that are effectively a single method...<pre><code class="language-scala">Service:  def apply(request : Request) : Future[Response]
