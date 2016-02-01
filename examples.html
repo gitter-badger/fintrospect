@@ -1,0 +1,26 @@
+<!DOCTYPE html><html><head><meta charset="utf8"/><title>fintrospect</title><link rel="icon" type="image/png" href="images/eye-32px.png"/><link rel="stylesheet" href="css/global.css"/><link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans|Source+Code+Pro"/><script src="js/jquery/jquery.min.js"></script><script src="js/bootstrap/bootstrap.js"></script></head><body><header><nav role="navigation" class="navbar navbar-default navbar-fixed-top"><div class="container-fluid"><div class="navbar-header"><button data-toggle="collapse" data-target="#navbar-top-collapse-1" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="." class="navbar-brand">fintrospect</a></div><div id="navbar-top-collapse-1" class="collapse navbar-collapse"><ul class="nav navbar-nav navbar-right"><li><a href="https://travis-ci.org/daviddenton/fintrospect" target="_top"><img src="https://travis-ci.org/daviddenton/fintrospect.svg?branch=master"/></a></li><li><a href="https://coveralls.io/github/daviddenton/fintrospect?branch=master" target="_top"><img src="https://coveralls.io/repos/daviddenton/fintrospect/badge.svg?branch=master"/></a></li><li><a href="https://bintray.com/daviddenton/maven/fintrospect/_latestVersion" target="_top"><img src="https://api.bintray.com/packages/daviddenton/maven/fintrospect/images/download.svg"/></a></li><li><a href="http://github.com/daviddenton/fintrospect" target="_top"><img src="images/GitHub-Mark-32px.png"/></a></li></ul></div></div></nav></header><main><div class="container"><div class="row"><div class="col-sm-3"><div class="logo"><img src="images/eye.png" class="logo"/></div><ul class="nav nav-pills nav-stacked nav-docs"><li><h1>guide</h1></li><li><a href=".">overview</a></li><li><a href="installation">installation</a></li><li><a href="request-parameters-and-bodies">request parameters & bodies</a></li><li><a href="defining-routes">defining routes</a></li><li><a href="server-routes">server routes</a></li><li><a href="client-routes">client routes</a></li><li><a href="building-http-responses">building http responses</a></li><li><a href="templating-and-static-content">templating and static content</a></li><li><a href="testing">testing</a></li><li class="active"><a href="examples">examples</a></li><li><h1>misc</h1></li><li><a href="changelog">changelog & migration</a></li></ul></div><div class="col-sm-9"><article class="article-docs"><h1>examples</h1><span>(There are several other code examples of the various features in the&nbsp;<a href="https://github.com/daviddenton/fintrospect/tree/master/src/test/scala/examples">source code</a></span><span>)</span><h1>building security system</h1><h4>about</h4><p>This is a complete example application which uses all the features of Fintrospect:</p>
+<ul>
+<li>HTTP request routing with automatic parameter marshalling and unmarshalling (Headers/Query/Path/Body)</li>
+<li>HTTP clients with request creation and route spec reuse for</li>
+<li>HTTP response building</li>
+<li>Json4S message formats</li>
+<li>Invalid request handling</li>
+<li>Swagger 2.0 documentation creation</li>
+</ul>
+<p>It has been developed in a London-TDD style with outside-in acceptance testing and CDCs for outside dependencies,
+to give a complete overview of how the app would look when finished. The code itself has been left without optimisation of
+imports in order to aid comprehension - which is a little frustrating from a maintainer perspective (as you always want your 
+code looking as awesome as possible! :).</p>
+<h4>requirements</h4><p>This example models a simple building security system accessible over HTTP. Requirements are:</p>
+<ol>
+<li>Users can ask to be let into and out of the building.</li>
+<li>Usernames are checked for validity against a remote HTTP UserDirectory system.</li>
+<li>Successful entries and exits are logged in a remote HTTP EntryLogger system.</li>
+<li>Users are tracking in a binary state - inside or not (outside). Only people outside the building can enter, and vice versa.</li>
+<li>All HTTP endpoints are protected with a secret HTTP header to only allow authorised access.</li>
+<li>API documentation should be available.</li>
+<li>Logging of every 10 successful requests should be made.</li>
+</ol>
+<h4>running this demo app</h4><p>Checkout the Fintrospect repo source and start a local environment by running the <code>RunnableEnvironment</code> App. This will start the 
+application on port 9999 which has been configured to use a fake versions of the remote dependencies (on ports 10000 
+and 10001). From there, just point your browser at <a href="http://localhost:9999/">http://localhost:9999/</a>.</p></article></div></div></div></main><footer><span class="left">project maintained by <a target="_top" href="https://github.com/daviddenton">daviddenton</a></span><span class="right"> site powered by <a target="_top" href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a target="_top" href="http://harpjs.com">Harp</a> by <a target="_top" href="http://www.jvandemo.com">Jurgen Van de Moere</a></span><script>$(function () { $('[data-toggle="tooltip"]').tooltip() })</script></footer></body></html>
