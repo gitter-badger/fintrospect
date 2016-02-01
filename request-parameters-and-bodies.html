@@ -25,8 +25,8 @@ val ourKidsBirthdays: Seq[LocalDate] = kidsBirthdays &lt;-- request
 val isMarried = FormField.optional.boolean(&quot;married&quot;)
 val form = Body.form(name, isMarried)
 val myForm = form &lt;-- request
-val myName = name &lt;-- formInstance
-val iAmMarried = isMarried &lt;-- formInstance
+val myName = name &lt;-- myForm
+val iAmMarried = isMarried &lt;-- myForm
 </code></pre><h4>usage of JSON libraries</h4><p>Fintrospect comes with binding support for several JSON libraries, each represented by static instances of <code>JsonFormat</code> on a class named 
 after the library in question. When defining a <code>Body</code> or <code>Parameter</code>, if required you can also specify the library format for it to 
 use (else it will default to the bundled Argo JSON library) - and if this is done centrally then you can switch out JSON libraries with only 
@@ -34,7 +34,7 @@ a single line of code change.</p>
 <pre><code>val json = Argonaut.JsonFormat
 val exampleObject = jsonFormat.obj(&quot;fieldName&quot; -&gt; json.string(&quot;hello&quot;))
 val json = Body.json(Option(&quot;my lovely JSON object&quot;), exampleObject, json)
-val body: Json = json &lt;-- Request()
+val body: Json = json &lt;-- request
 </code></pre><p>Notice that in the above we specified an example of the JSON message. This is not mandatory, but allows the generation of 
 <a href="http://json-schema.org/" target="_top">JSON Schema</a> to be included in the auto-generated API documentation.</p>
 <h3>custom object serialisation</h3><p>These can be implemented by defining a <code>ParameterSpec</code> or <code>BodySpec</code> and passing an instance instead of calling the <code>&lt;param type&gt;</code> method 
