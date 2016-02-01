@@ -17,27 +17,27 @@ this bound <code>Service</code>, so no validation code is required. The response
 val includeManagement = Header.optional.boolean(&quot;includeManagement&quot;)
 
 def findEmployeesOnHoliday(departmentId: Integer) = Service.mk[Request, Response] {
-    request =&gt;
-        val holidayDates: Seq[LocalDate] = holidays &lt;-- request
-        val includeManagementFlag: Option[Boolean] = includeManagement &lt;-- request
-        val response = Response(Ok)
-        val baseMsg = s&quot;Everyone from department $departmentId was at work on $holidayDates&quot;
-        response.contentString = baseMsg + (if (includeManagementFlag.getOrElse(false)) &quot;&quot; else &quot;, even the management&quot;) Future.value(response)
+  request =&gt;
+    val holidayDates: Seq[LocalDate] = holidays &lt;-- request
+    val includeManagementFlag: Option[Boolean] = includeManagement &lt;-- request
+    val response = Response(Ok)
+    val baseMsg = s&quot;Everyone from department $departmentId was at work on $holidayDates&quot;
+    response.contentString = baseMsg + (if (includeManagementFlag.getOrElse(false)) &quot;&quot; else &quot;, even the management&quot;) Future.value(response)
 }
 
 val route = ServerRoute[Request] = 
-    RouteSpec()
-    .taking(holidays)
-    .taking(includeManagement)
-    .at(Method.Get) / &quot;employee&quot; / Path.integer(&quot;departmentId&quot;) bindTo findEmployeesOnHoliday
+  RouteSpec()
+  .taking(holidays)
+  .taking(includeManagement)
+  .at(Method.Get) / &quot;employee&quot; / Path.integer(&quot;departmentId&quot;) bindTo findEmployeesOnHoliday
 </code></pre><h3>modules</h3><p>A Module is a collection of <code>ServerRoute</code> that share a common URL context, which is built up from the <code>Root</code> object. Add the 
 routes and then convert into a standard Finagle Service object which is then attached in the normal way to an HTTP server.</p>
 <pre><code>def listEmployees(): Service[Request, Response] = Service.mk(req =&gt; Future.value(Response()))
 
 Http.serve(&quot;:8080&quot;,
-    ModuleSpec(Root / &quot;employee&quot;)
-      .withRoute(RouteSpec(&quot;lists all employees&quot;).at(Method.Get) bindTo listEmployees)
-      .toService
+  ModuleSpec(Root / &quot;employee&quot;)
+    .withRoute(RouteSpec(&quot;lists all employees&quot;).at(Method.Get) bindTo listEmployees)
+    .toService
 )
 </code></pre><p>Modules with different root contexts can also be combined with one another and then converted to a Service:</p>
 <pre><code>Module.toService(ModuleSpec(Root / &quot;a&quot;).combine(ModuleSpec(Root / &quot;b&quot;)))
