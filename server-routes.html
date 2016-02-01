@@ -43,7 +43,7 @@ Http.serve(&quot;:8080&quot;,
 <pre><code>Module.toService(ModuleSpec(Root / &quot;a&quot;).combine(ModuleSpec(Root / &quot;b&quot;)))
 </code></pre><h4>self-describing Module APIs</h4><p>A big feature of the Fintrospect library is the ability to generate API documentation at runtime. This can be activated by passing 
 in a ModuleRenderer implementation when creating the ModuleSpec and when this is done, a new endpoint is created at the root of the 
-module context (this location is overridable) which serves this documentation. </p>
+module context (this location is overridable) which serves this documentation.</p>
 <p>Bundled with Fintrospect are:</p>
 <ul>
 <li>Swagger (1.1 and 2.0) JSON, including <a href="http://json-schema.org/" target="_top">JSON Schema</a> models</li>
@@ -51,8 +51,11 @@ module context (this location is overridable) which serves this documentation. <
 <li>Sitemap XML format</li>
 </ul>
 <p>Other implementations are pluggable by implementing the <code>ModuleRenderer</code>  trait - see the example code for a simple XML implementation.</p>
-<pre><code>ModuleSpec(Root / &quot;employee&quot;, Swagger2dot0Json(ApiInfo(&quot;an employee discovery API&quot;, &quot;3.0&quot;)))
-</code></pre><h4>security</h4><p>Module routes can secured by adding an implementation of the <code>Security</code> trait - this essentially provides a filter through which 
+<pre><code>val service = ModuleSpec(Root / &quot;employee&quot;, Swagger2dot0Json(ApiInfo(&quot;an employee discovery API&quot;, &quot;3.0&quot;))).toService
+Http.serve(&quot;:8080&quot;, new HttpFilter(Cors.UnsafePermissivePolicy).andThen(service))
+</code></pre><p>Note above the usage of the Finagle <code>CorsPolicy</code> filter, which will allow the services to be called from a Swagger UI - 
+without it, the server will reject any cross-domain requests initiated inside a browser.</p>
+<h4>security</h4><p>Module routes can secured by adding an implementation of the <code>Security</code> trait - this essentially provides a filter through which 
 all requests will be passed. An <code>ApiKey</code> implementation is bundled with the library which return an <code>401 Unauthorized</code> HTTP 
 response code when a request does not pass authentication.</p>
 <pre><code>ModuleSpec(Root / &quot;employee&quot;)
