@@ -90,7 +90,7 @@ handling content types like JSON or XML in a set of popular OSS libraries. These
 </tr>
 </table>
 <p>Note that to avoid dependency bloat, Fintrospect only ships with the above JSON library bindings - you&#39;ll need to bring in the library of your choice as an additional dependency.</p>
-<p>The simplest (least concise) way to invoke an auto-marshalling (ie. typesafe) ResponseBuilder is along the lines of:</p>
+<p>The simplest (least concise) way to invoke an auto-marshalling (ie. type-safe) ResponseBuilder is along the lines of:</p>
 <pre><code>val responseNoImplicits: Future[Response] = ResponseBuilder.toFuture(
 Xml.ResponseBuilder.HttpResponse(Ok).withContent(&lt;xml&gt;lashings and lashings of wonderful&lt;/xml&gt;)
 )
