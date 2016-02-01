@@ -26,7 +26,7 @@ Generates <a href="http://json-schema.org/" target="_top">JSON Schema</a> for ex
 <li><code>RouteSpec</code>: defines the self-describing contract of an HTTP endpoint</li>
 <li><code>ServerRoute</code>: the binding of a <code>RouteSpec</code> to a Finagle <code>Service</code>  implementing some business-logic, to create an inbound HTTP endpoint</li>
 <li><code>RouteClient</code>: the binding of a <code>RouteSpec</code> to a Finagle <code>Service</code> representing an HTTP client, to create a simple function for making outbound HTTP calls</li>
-<li><code>ParameterSpec</code>: defines the acceptable format for a request parameter (Path/Query/Header/Form-field). Provides the auto-marshalling mechanic for serializing and deserializing objects to and from HTTP message</li>
+<li><code>ParameterSpec</code>: defines the acceptable format for a request parameter (Path/Query/Header/Form-field). Provides the auto-marshalling mechanic for serializing and deserializing objects to and from HTTP messages</li>
 <li><code>BodySpec</code>: similar to <code>ParameterSpec</code>, but applied to the body of an HTTP message</li>
 <li><code>ModuleSpec</code>: defines a set of <code>ServerRoute</code> instances which are grouped under a particular request path. These modules can be combined and then converted to a Finagle <code>Service</code> and attached to a Finagle HTTP server. Each module 
 provides an endpoint under which it&#39;s own runtime-generated documentation can be served (eg. in <a href="http://swagger.io/" target="_top">Swagger</a> format)</li>
@@ -45,4 +45,5 @@ apply layers of functionality such as caching headers, retry behaviour, and time
 </ol>
 <h3>a note on style</h3><ul>
 <li>The code in this guide has omitted imports that would have made the it read more concisely. The sacrifices we make in the name of learning... :)</li>
-</ul></article></div></div></div></main><footer><span class="left">project maintained by <a target="_top" href="https://github.com/daviddenton">daviddenton</a></span><span class="right"> site powered by <a target="_top" href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a target="_top" href="http://harpjs.com">Harp</a> by <a target="_top" href="http://www.jvandemo.com">Jurgen Van de Moere</a></span><script>$(function () { $('[data-toggle="tooltip"]').tooltip() })</script></footer></body></html>
+</ul>
+<p><a class="next" href="installation" target="_top"><button type="button" class="btn btn-sm btn-default">next: installation</button></a></p></article></div></div></div></main><footer><span class="left">project maintained by <a target="_top" href="https://github.com/daviddenton">daviddenton</a></span><span class="right"> site powered by <a target="_top" href="https://github.com/jvandemo/hb-bootstrap">hb-bootstrap</a> for <a target="_top" href="http://harpjs.com">Harp</a> by <a target="_top" href="http://www.jvandemo.com">Jurgen Van de Moere</a></span><script>$(function () { $('[data-toggle="tooltip"]').tooltip() })</script></footer></body></html>
